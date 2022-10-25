@@ -1,0 +1,106 @@
+﻿<Window x:Class="TravelPal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TravelPal"
+        mc:Ignorable="d"
+        Title="SIGN IN TO TRAVELPAL" 
+        Height="500" 
+        Width="500" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen"
+        FontFamily="Verdana"
+        FontSize="15"
+        Background="MintCream"
+        >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "*"/>
+            <ColumnDefinition Width = "2*"/><!--WindowContent-->
+            <ColumnDefinition Width = "*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "2*"/><!--Header-->
+            <RowDefinition Height = "0.5*"/><!--UsernameText-->
+            <RowDefinition Height = "0.5*"/><!--UsernameBox-->
+            <RowDefinition Height = "0.5*"/><!--PasswordText-->
+            <RowDefinition Height = "0.5*"/><!--PasswordBox-->
+            <RowDefinition Height = "0.5*"/><!--LoginButton-->
+            <RowDefinition Height = "2*"/><!--RegisterButton-->
+        </Grid.RowDefinitions>
+        
+        <Label
+            Content="TravelPal"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontSize="60"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            />
+        
+        <Label
+            Content="USERNAME:"
+            Grid.Column="1"
+            Grid.Row="1"
+            FontWeight="Bold"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            />
+        
+        <TextBox
+            Name="tbUsername"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="5"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            />
+        
+        <Label
+            Content="PASSWORD:"
+            Grid.Column="1"
+            Grid.Row="3"
+            FontWeight="Bold"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            />
+        
+        <PasswordBox
+            Name="tbPassword"
+            Grid.Column="1"
+            Grid.Row="4"
+            Margin="5"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            />
+        
+        <Button
+            Name="btnLogin"
+            Content="SIGN IN"
+            Grid.Column="1"
+            Grid.Row="5"
+            Margin="5"
+            Width="175"
+            FontWeight="Bold"
+            Click="btnLogin_Click"
+            />
+        
+        <Button Style="{DynamicResource RegisterButtonStyle}"
+            Name="btnRegister"
+            Content="Register new account."
+            Grid.Column="1"
+            Grid.Row="6"
+            Margin="5"
+            Width="140"
+            Height="20"
+            FontSize="12"
+            Foreground="Blue"
+            VerticalAlignment="Top"
+            Click="btnRegister_Click"
+            />
+    </Grid> 
+</Window>
