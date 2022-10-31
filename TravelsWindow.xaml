@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelPal"
         mc:Ignorable="d"
-        Title="REGISTER NEW ACCOUNT" 
+        Title="MANAGE TRAVELS" 
         Height="700" 
         Width="600" 
         ResizeMode="NoResize" 
@@ -19,7 +19,7 @@
             <ColumnDefinition Width = "0.2*"/>
             <ColumnDefinition Width = "110"/>
             <ColumnDefinition Width = "110"/>
-            <ColumnDefinition Width = "110"/>
+            <ColumnDefinition Width = "130"/>
             <ColumnDefinition Width = "110"/>
             <ColumnDefinition Width = "110"/>
             <ColumnDefinition Width = "0.2*"/>
@@ -32,6 +32,19 @@
             <RowDefinition Height = "*"/>
             <RowDefinition Height = "0.2*"/>
         </Grid.RowDefinitions>
+        
+        <Button
+            Name="btnUserSettings"
+            Content="USER"
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="5"
+            Width="100"
+            Height="30"
+            FontWeight="Bold"
+            VerticalAlignment="Bottom"
+            Click="btnUserSettings_Click"
+            />
 
         <Label
             Content="LOGGED IN AS:"
@@ -58,18 +71,6 @@
             />
 
         <Button
-            Name="btnUserSettings"
-            Content="USER"
-            Grid.Column="1"
-            Grid.Row="1"
-            Margin="5"
-            Width="100"
-            Height="30"
-            FontWeight="Bold"
-            VerticalAlignment="Bottom"
-            />
-
-        <Button
             Name="btnSignOut"
             Content="SIGN OUT"
             Grid.Column="5"
@@ -79,6 +80,7 @@
             Height="30"
             FontWeight="Bold"
             VerticalAlignment="Bottom"
+            Click="btnSignOut_Click"
             />
 
         <ListView
@@ -100,6 +102,7 @@
             FontSize="12"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
+            Click="btnAddTravel_Click"
             />
 
         <Button
@@ -108,12 +111,13 @@
             Grid.Column="3"
             Grid.Row="3"
             Margin="5"
-            Width="100"
+            Width="120"
             Height="40"
             FontSize="12"
             FontWeight="Bold"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
+            Click="btnDetails_Click"
             />
 
         <Button
@@ -127,6 +131,7 @@
             FontSize="12"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
+            Click="btnRemoveTravel_Click"
             />
 
         <Button
@@ -140,6 +145,7 @@
             FontSize="10"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
+            Click="btnHelp_Click"
             />
     </Grid>
 </Window>

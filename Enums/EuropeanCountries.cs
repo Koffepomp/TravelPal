@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TravelPal
+namespace TravelPal.Enums
 {
-    enum EuropeanCountries
+    public enum EuropeanCountries
     {
         Austria,
         Belgium,

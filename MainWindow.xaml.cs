@@ -25,6 +25,9 @@ namespace TravelPal
         {
             // Close Main window and open TravelsWindow
             MessageBox.Show("Logging in... Please wait...");
+            TravelsWindow travelsWindow = new();
+            travelsWindow.Show();
+            Close();
         }
     }
 }
