@@ -17,8 +17,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "*"/>
-            <ColumnDefinition Width = "2*"/>
-            <!--WindowContent-->
+            <ColumnDefinition Width = "2*"/><!--WindowContent-->
             <ColumnDefinition Width = "*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -27,6 +26,8 @@
             <RowDefinition Height = "0.6*"/><!--UsernameBox-->
             <RowDefinition Height = "0.6*"/><!--PasswordText-->
             <RowDefinition Height = "0.6*"/><!--PasswordBox-->
+            <RowDefinition Height = "0.6*"/><!--ConfirmPasswordText-->
+            <RowDefinition Height = "0.6*"/><!--ConfirmPasswordBox-->
             <RowDefinition Height = "0.6*"/><!--CountryText-->
             <RowDefinition Height = "0.6*"/><!--CountryComboBox-->
             <RowDefinition Height = "2*"/><!--RegisterButton-->
@@ -81,9 +82,27 @@
             />
 
         <Label
-            Content="COUNTRY:"
+            Content="CONFIRM PASSWORD:"
             Grid.Column="1"
             Grid.Row="5"
+            FontWeight="Bold"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            />
+
+        <PasswordBox
+            Name="tbRegisterConfirmPassword"
+            Grid.Column="1"
+            Grid.Row="6"
+            Margin="5"
+            HorizontalContentAlignment="Left"
+            VerticalContentAlignment="Center"
+            />
+
+        <Label
+            Content="COUNTRY:"
+            Grid.Column="1"
+            Grid.Row="7"
             FontWeight="Bold"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
@@ -92,7 +111,7 @@
         <ComboBox
             Name="cbRegisterCountry"
             Grid.Column="1"
-            Grid.Row="6"
+            Grid.Row="8"
             Margin="5"
             Width="150"
             HorizontalAlignment="Left"
@@ -104,7 +123,7 @@
             Name="btnRegisterAccount"
             Content="REGISTER"
             Grid.Column="1"
-            Grid.Row="7"
+            Grid.Row="9"
             Margin="5"
             Width="140"
             Height="30"
