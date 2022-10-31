@@ -69,8 +69,8 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             />
-        
-        <PasswordBox
+
+        <TextBox
             Name="tbPassword"
             Grid.Column="1"
             Grid.Row="4"

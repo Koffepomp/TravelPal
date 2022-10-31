@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
+using TravelPal.Accounts;
 
 namespace TravelPal
 {
@@ -7,6 +9,7 @@ namespace TravelPal
     /// </summary>
     public partial class MainWindow : Window
     {
+        UserManager userManager = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -15,19 +18,36 @@ namespace TravelPal
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             // Close Main window and open register window
-            MessageBox.Show("Opening register window...");
-            RegisterWindow registerWindow = new();
+            //MessageBox.Show("Opening register window...");
+            RegisterWindow registerWindow = new(userManager);
             registerWindow.Show();
-            Close();
+            //Close();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            // Close Main window and open TravelsWindow
-            MessageBox.Show("Logging in... Please wait...");
-            TravelsWindow travelsWindow = new();
-            travelsWindow.Show();
-            Close();
+            List<IUser> Accounts = userManager.FetchAccounts();
+            string inputUsername = tbUsername.Text;
+            string inputPassword = tbPassword.Text;
+            bool loginAuthenticated = false;
+
+            foreach (IUser user in Accounts)
+            {
+                if (user.Username == inputUsername && user.Password == inputPassword)
+                {
+                    loginAuthenticated = true;
+                    // Close Main window and open TravelsWindow
+                    MessageBox.Show("Logging in... Please wait...");
+                    TravelsWindow travelsWindow = new(userManager, user);
+                    travelsWindow.Show();
+                    Close();
+                }
+            }
+            if (!loginAuthenticated)
+            {
+                MessageBox.Show("Wrong username or password!");
+                tbPassword.Clear();
+            }
         }
     }
 }

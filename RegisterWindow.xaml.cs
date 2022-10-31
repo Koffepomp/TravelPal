@@ -9,10 +9,12 @@ namespace TravelPal
     /// </summary>
     public partial class RegisterWindow : Window
     {
-        public RegisterWindow()
+        UserManager UserManager;
+        public RegisterWindow(UserManager userManager)
         {
             InitializeComponent();
             AddCountriesToComboBox();
+            UserManager = userManager;
         }
 
         private void AddCountriesToComboBox()
@@ -26,9 +28,11 @@ namespace TravelPal
         private void btnRegisterAccount_Click(object sender, RoutedEventArgs e)
         {
             // Close RegisterWindow and open MainWindow
-            MessageBox.Show("Account succesfully created. Please login!");
-            MainWindow mainWindow = new();
-            mainWindow.Show();
+
+            UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, cbRegisterCountry.SelectedItem.ToString());
+
+            //MainWindow mainWindow = new();
+            //mainWindow.Show();
             Close();
         }
     }

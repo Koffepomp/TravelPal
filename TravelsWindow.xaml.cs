@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using TravelPal.Accounts;
 
 namespace TravelPal
 {
@@ -7,9 +8,23 @@ namespace TravelPal
     /// </summary>
     public partial class TravelsWindow : Window
     {
-        public TravelsWindow()
+        UserManager UserManager;
+        IUser User;
+        public TravelsWindow(UserManager userManager, IUser user)
         {
             InitializeComponent();
+            UserManager = userManager;
+            User = user;
+            lblUsername.Content = user.Username.ToUpper();
+
+            // IF ADMIN HERE
+
+            UpdateTravelListView();
+        }
+
+        private void UpdateTravelListView()
+        {
+            lvTravels.Items.Clear();
         }
 
         private void btnUserSettings_Click(object sender, RoutedEventArgs e)
@@ -18,7 +33,7 @@ namespace TravelPal
             MessageBox.Show("Opening user settings!");
             UserDetailsWindow userDetailsWindow = new();
             userDetailsWindow.Show();
-            Close();
+            //Close();
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
@@ -34,6 +49,8 @@ namespace TravelPal
         {
             // Close Travelswindow and open addtravelwindow
             MessageBox.Show("Opening add travel window!");
+            AddTravelWindow addTravelWindow = new();
+            addTravelWindow.Show();
         }
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)

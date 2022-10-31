@@ -7,10 +7,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Accounts\" />
-    <Folder Include="Travels\" />
-    <Folder Include="PackingList\" />
-  </ItemGroup>
-
 </Project>

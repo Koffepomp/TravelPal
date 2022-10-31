@@ -72,7 +72,7 @@
             VerticalAlignment="Bottom"
             />
 
-        <PasswordBox
+        <TextBox
             Name="tbRegisterPassword"
             Grid.Column="1"
             Grid.Row="4"
@@ -90,7 +90,7 @@
             VerticalAlignment="Bottom"
             />
 
-        <PasswordBox
+        <TextBox
             Name="tbRegisterConfirmPassword"
             Grid.Column="1"
             Grid.Row="6"

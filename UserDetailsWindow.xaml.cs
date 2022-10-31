@@ -16,8 +16,8 @@ namespace TravelPal
         {
             // User cancelled making account changes
             MessageBox.Show("No changes made. Returning to Travels...");
-            TravelsWindow travelsWindow = new();
-            travelsWindow.Show();
+            //TravelsWindow travelsWindow = new();
+            //travelsWindow.Show();
             Close();
         }
 
@@ -25,8 +25,8 @@ namespace TravelPal
         {
             // Saves new changes to user account and return to Travels Window
             MessageBox.Show("New settings saved!");
-            TravelsWindow travelsWindow = new();
-            travelsWindow.Show();
+            //TravelsWindow travelsWindow = new();
+            //travelsWindow.Show();
             Close();
         }
 
