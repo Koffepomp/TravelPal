@@ -19,7 +19,7 @@ namespace TravelPal
 
         private void AddCountriesToComboBox()
         {
-            foreach (Enum country in Enum.GetValues(typeof(EuropeanCountries)))
+            foreach (Enum country in Enum.GetValues(typeof(Countries)))
             {
                 cbRegisterCountry.Items.Add(country);
             }

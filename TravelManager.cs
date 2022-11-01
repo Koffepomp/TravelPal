@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using TravelPal.Enums;
+using TravelPal.Travels;
 
 namespace TravelPal
 {
-    internal class TravelManager
+    public class TravelManager
     {
+        List<Travel> Travels = new();
+
+        public TravelManager()
+        {
+
+        }
+
+        public List<Travel> GetAllTravels()
+        {
+            return Travels;
+        }
+
+        public void AddTravel(string destination, Countries country, int travellers)
+        {
+            Travel newTravel = new(destination, country, travellers);
+            Travels.Add(newTravel);
+        }
+
+        public void RemoveTravel()
+        {
+
+        }
+
+
     }
 }

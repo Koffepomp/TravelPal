@@ -10,6 +10,7 @@ namespace TravelPal
     public partial class MainWindow : Window
     {
         UserManager userManager = new();
+        TravelManager travelManager = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace TravelPal
                     loginAuthenticated = true;
                     // Close Main window and open TravelsWindow
                     MessageBox.Show("Logging in... Please wait...");
-                    TravelsWindow travelsWindow = new(userManager, user);
+                    TravelsWindow travelsWindow = new(userManager, user, travelManager);
                     travelsWindow.Show();
                     Close();
                 }

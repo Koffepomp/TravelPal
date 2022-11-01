@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using TravelPal.Accounts;
+using TravelPal.Enums;
 
 namespace TravelPal
 {
@@ -8,11 +11,26 @@ namespace TravelPal
     /// </summary>
     public partial class AddTravelWindow : Window
     {
-        public AddTravelWindow()
+        UserManager UserManager;
+        IUser User;
+        TravelManager TravelManager;
+        public AddTravelWindow(UserManager userManager, IUser user, TravelManager travelManager)
         {
+            UserManager = userManager;
+            User = user;
             InitializeComponent();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
+            AddCountriesToComboBox();
+            TravelManager = travelManager;
+        }
+
+        private void AddCountriesToComboBox()
+        {
+            foreach (Enum country in Enum.GetValues(typeof(Countries)))
+            {
+                cbCountry.Items.Add(country);
+            }
         }
 
         private void cbTripVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -41,6 +59,66 @@ namespace TravelPal
                 lblTripType.Visibility = Visibility.Collapsed;
                 cbTripType.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void chbxDocument_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleAmountAndRequiredVisibility();
+        }
+
+        private void btnAddItem_Click(object sender, RoutedEventArgs e)
+        {
+            ResetInventoryFields();
+        }
+
+        private void ToggleAmountAndRequiredVisibility()
+        {
+            if (lblAmount.Visibility == Visibility.Visible)
+            {
+                lblAmount.Visibility = Visibility.Collapsed;
+                tbItemAmount.Visibility = Visibility.Collapsed;
+                lblRequired.Visibility = Visibility.Visible;
+                chbxRequired.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lblAmount.Visibility = Visibility.Visible;
+                tbItemAmount.Visibility = Visibility.Visible;
+                lblRequired.Visibility = Visibility.Collapsed;
+                chbxRequired.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ResetInventoryFields()
+        {
+            // Shows the amount label and textbox
+            lblAmount.Visibility = Visibility.Visible;
+            tbItemAmount.Visibility = Visibility.Visible;
+
+            // Hides required label and checkbox
+            lblRequired.Visibility = Visibility.Collapsed;
+            chbxRequired.Visibility = Visibility.Collapsed;
+
+            // Reset checkboxes
+            chbxRequired.IsChecked = false;
+            chbxDocument.IsChecked = false;
+
+            // Clear item name and amount textboxes
+            tbItemName.Clear();
+            tbItemAmount.Clear();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void btnAddTravel_Click(object sender, RoutedEventArgs e)
+        {
+            TravelManager.AddTravel(tbDestination.Text, (Countries)cbCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text));
+
+            MessageBox.Show("Destination added to your travels!");
+            Close();
         }
     }
 }

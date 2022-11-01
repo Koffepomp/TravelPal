@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using TravelPal.Accounts;
+using TravelPal.Travels;
 
 namespace TravelPal
 {
@@ -10,11 +12,14 @@ namespace TravelPal
     {
         UserManager UserManager;
         IUser User;
-        public TravelsWindow(UserManager userManager, IUser user)
+        TravelManager TravelManager;
+
+        public TravelsWindow(UserManager userManager, IUser user, TravelManager travelManager)
         {
             InitializeComponent();
             UserManager = userManager;
             User = user;
+            TravelManager = travelManager;
             lblUsername.Content = user.Username.ToUpper();
 
             // IF ADMIN HERE
@@ -25,12 +30,19 @@ namespace TravelPal
         private void UpdateTravelListView()
         {
             lvTravels.Items.Clear();
+
+            foreach (Travel travel in TravelManager.GetAllTravels())
+            {
+                ListViewItem newTravelItem = new();
+                newTravelItem.Content = travel.GetInfo();
+                newTravelItem.Tag = travel;
+                lvTravels.Items.Add(newTravelItem);
+            }
         }
 
         private void btnUserSettings_Click(object sender, RoutedEventArgs e)
         {
             // Close Travelswindow and open usersettings
-            MessageBox.Show("Opening user settings!");
             UserDetailsWindow userDetailsWindow = new();
             userDetailsWindow.Show();
             //Close();
@@ -39,7 +51,6 @@ namespace TravelPal
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             // Close RegisterWindow and open MainWindow
-            MessageBox.Show("Logging out...");
             MainWindow mainWindow = new();
             mainWindow.Show();
             Close();
@@ -48,8 +59,7 @@ namespace TravelPal
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             // Close Travelswindow and open addtravelwindow
-            MessageBox.Show("Opening add travel window!");
-            AddTravelWindow addTravelWindow = new();
+            AddTravelWindow addTravelWindow = new(UserManager, User, TravelManager);
             addTravelWindow.Show();
         }
 
@@ -68,7 +78,7 @@ namespace TravelPal
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             // Help user with some information
-            MessageBox.Show("Help was clicked!");
+            UpdateTravelListView();
         }
     }
 }
