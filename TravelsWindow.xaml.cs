@@ -27,7 +27,7 @@ namespace TravelPal
             UpdateTravelListView();
         }
 
-        private void UpdateTravelListView()
+        public void UpdateTravelListView()
         {
             lvTravels.Items.Clear();
 
@@ -51,8 +51,13 @@ namespace TravelPal
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             // Close RegisterWindow and open MainWindow
-            MainWindow mainWindow = new();
-            mainWindow.Show();
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "MainWindow")
+                {
+                    window.Show();
+                }
+            }
             Close();
         }
 
@@ -60,7 +65,9 @@ namespace TravelPal
         {
             // Close Travelswindow and open addtravelwindow
             AddTravelWindow addTravelWindow = new(UserManager, User, TravelManager);
+            addTravelWindow.Owner = this;
             addTravelWindow.Show();
+            this.Hide();
         }
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
@@ -78,7 +85,6 @@ namespace TravelPal
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             // Help user with some information
-            UpdateTravelListView();
         }
     }
 }

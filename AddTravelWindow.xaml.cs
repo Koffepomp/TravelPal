@@ -110,14 +110,27 @@ namespace TravelPal
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
             Close();
         }
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             TravelManager.AddTravel(tbDestination.Text, (Countries)cbCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text));
-
-            MessageBox.Show("Destination added to your travels!");
+            ((TravelsWindow)this.Owner).UpdateTravelListView();
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
             Close();
         }
     }

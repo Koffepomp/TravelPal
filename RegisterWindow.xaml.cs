@@ -28,11 +28,15 @@ namespace TravelPal
         private void btnRegisterAccount_Click(object sender, RoutedEventArgs e)
         {
             // Close RegisterWindow and open MainWindow
-
             UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, cbRegisterCountry.SelectedItem.ToString());
-
-            //MainWindow mainWindow = new();
-            //mainWindow.Show();
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "MainWindow")
+                {
+                    window.Show();
+                }
+            }
+            this.Close();
             Close();
         }
     }

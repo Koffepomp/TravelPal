@@ -15,7 +15,7 @@ namespace TravelPal.Travels
 
         public string GetInfo()
         {
-            string info = Destination + Country + Travellers;
+            string info = $"{Country} for 3 days";
             return info;
         }
 

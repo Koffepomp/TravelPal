@@ -22,7 +22,7 @@ namespace TravelPal
             //MessageBox.Show("Opening register window...");
             RegisterWindow registerWindow = new(userManager);
             registerWindow.Show();
-            //Close();
+            this.Hide();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -38,10 +38,9 @@ namespace TravelPal
                 {
                     loginAuthenticated = true;
                     // Close Main window and open TravelsWindow
-                    MessageBox.Show("Logging in... Please wait...");
                     TravelsWindow travelsWindow = new(userManager, user, travelManager);
                     travelsWindow.Show();
-                    Close();
+                    this.Hide();
                 }
             }
             if (!loginAuthenticated)
