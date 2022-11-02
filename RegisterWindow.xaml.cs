@@ -28,7 +28,7 @@ namespace TravelPal
         private void btnRegisterAccount_Click(object sender, RoutedEventArgs e)
         {
             // Close RegisterWindow and open MainWindow
-            UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, cbRegisterCountry.SelectedItem.ToString());
+            UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, (Countries)cbRegisterCountry.SelectedItem);
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType().Name == "MainWindow")

@@ -324,6 +324,7 @@
             Margin="10"
             VerticalAlignment="Center"
             SelectionMode="MultipleRange"
+            SelectedDatesChanged="cldDates_SelectedDatesChanged"
             />
     </Grid>
 </Window>

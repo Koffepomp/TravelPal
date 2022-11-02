@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TravelPal.Accounts;
 using TravelPal.Enums;
 using TravelPal.PackingList;
@@ -15,13 +16,13 @@ namespace TravelPal
     public partial class AddTravelWindow : Window
     {
         UserManager UserManager;
-        IUser User;
+        IUser SignedInUser;
         TravelManager TravelManager;
 
-        public AddTravelWindow(UserManager userManager, IUser user, TravelManager travelManager)
+        public AddTravelWindow(UserManager userManager, IUser signedInUser, TravelManager travelManager)
         {
             UserManager = userManager;
-            User = user;
+            SignedInUser = signedInUser;
             TravelManager = travelManager;
             InitializeComponent();
             cbTripVacation.Items.Add("Trip");
@@ -30,7 +31,7 @@ namespace TravelPal
             cbTripType.Items.Add("Leisure");
             cbTripType.SelectedIndex = 0;
             AddCountriesToComboBox();
-            tbFrom.Text = user.Country;
+            tbFrom.Text = signedInUser.Location.ToString();
         }
 
         private void AddCountriesToComboBox()
@@ -223,6 +224,11 @@ namespace TravelPal
             }
 
             return packList;
+        }
+
+        private void cldDates_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Mouse.Capture(null);
         }
     }
 }
