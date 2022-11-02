@@ -18,11 +18,12 @@ namespace TravelPal
         {
             UserManager = userManager;
             User = user;
+            TravelManager = travelManager;
             InitializeComponent();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
             AddCountriesToComboBox();
-            TravelManager = travelManager;
+            tbFrom.Text = user.Country;
         }
 
         private void AddCountriesToComboBox()

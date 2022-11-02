@@ -79,6 +79,10 @@ namespace TravelPal
             Travel selectedTravel = (Travel)currentSelectedTravelDetails.Tag;
 
             // TravelDetailsWindow
+            TravelDetailsWindow travelDetailsWindow = new(UserManager, User, TravelManager, selectedTravel);
+            travelDetailsWindow.Owner = this;
+            travelDetailsWindow.Show();
+            this.Hide();
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
@@ -90,12 +94,13 @@ namespace TravelPal
                 currentSelectedTravelToRemove = (ListViewItem)lvTravels.SelectedItem;
                 Travel selectedTravel = (Travel)currentSelectedTravelToRemove.Tag;
                 TravelManager.RemoveTravel(selectedTravel);
+                UpdateTravelListView();
                 MessageBox.Show("Successfully removed travel!");
-
             }
             catch
             {
                 MessageBox.Show("Please select a destination.");
+                UpdateTravelListView();
             }
         }
 

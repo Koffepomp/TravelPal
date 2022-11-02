@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using TravelPal.Accounts;
+using TravelPal.Travels;
 
 namespace TravelPal
 {
@@ -19,9 +9,67 @@ namespace TravelPal
     /// </summary>
     public partial class TravelDetailsWindow : Window
     {
-        public TravelDetailsWindow()
+        UserManager UserManager;
+        IUser User;
+        TravelManager TravelManager;
+        Travel Travel;
+        public TravelDetailsWindow(UserManager userManager, IUser user, TravelManager travelManager, Travel selectedTravel)
         {
+            UserManager = userManager;
+            User = user;
+            TravelManager = travelManager;
+            Travel = selectedTravel;
             InitializeComponent();
+            LoadTravelDetails();
+        }
+
+        private void LoadTravelDetails()
+        {
+            tbDestination.Text = Travel.Destination;
+            cbCountry.Items.Add(Travel.Country);
+            cbCountry.SelectedIndex = 0;
+            tbTravelers.Text = Travel.Travellers.ToString();
+            cbTripVacation.Items.Add("Trip");
+            cbTripVacation.Items.Add("Vacation");
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            // Enables and disables appropiate features when edit is clicked
+            btnEdit.IsEnabled = false;
+            btnSaveTravel.IsEnabled = true;
+            tbDestination.IsEnabled = true;
+            cbCountry.IsEnabled = true;
+            tbTravelers.IsEnabled = true;
+            cbTripVacation.IsEnabled = true;
+            chbxAllInclusive.IsEnabled = true;
+            cbTripType.IsEnabled = true;
+        }
+
+        private void btnSaveTravel_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("New travel details saved!");
+            ((TravelsWindow)this.Owner).UpdateTravelListView();
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType().Name == "TravelsWindow")
+                {
+                    window.Show();
+                }
+            }
+            Close();
         }
     }
 }
