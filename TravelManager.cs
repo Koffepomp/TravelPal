@@ -24,9 +24,9 @@ namespace TravelPal
             Travels.Add(newTravel);
         }
 
-        public void RemoveTravel()
+        public void RemoveTravel(Travel selectedTravel)
         {
-
+            Travels.Remove(selectedTravel);
         }
 
 

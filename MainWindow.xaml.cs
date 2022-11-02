@@ -37,6 +37,7 @@ namespace TravelPal
                 if (user.Username == inputUsername && user.Password == inputPassword)
                 {
                     loginAuthenticated = true;
+                    tbPassword.Clear();
                     // Close Main window and open TravelsWindow
                     TravelsWindow travelsWindow = new(userManager, user, travelManager);
                     travelsWindow.Show();

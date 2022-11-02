@@ -20,6 +20,7 @@ namespace TravelPal
             UserManager = userManager;
             User = user;
             TravelManager = travelManager;
+            // Shows username as logged in
             lblUsername.Content = user.Username.ToUpper();
 
             // IF ADMIN HERE
@@ -43,9 +44,9 @@ namespace TravelPal
         private void btnUserSettings_Click(object sender, RoutedEventArgs e)
         {
             // Close Travelswindow and open usersettings
-            UserDetailsWindow userDetailsWindow = new();
+            UserDetailsWindow userDetailsWindow = new(UserManager, User);
             userDetailsWindow.Show();
-            //Close();
+            this.Hide();
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
@@ -73,13 +74,29 @@ namespace TravelPal
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
             // Close Travelswindow and open traveldetailswindow
-            MessageBox.Show("Opening detailed travel window!");
+            ListViewItem currentSelectedTravelDetails = new();
+            currentSelectedTravelDetails = (ListViewItem)lvTravels.SelectedItem;
+            Travel selectedTravel = (Travel)currentSelectedTravelDetails.Tag;
+
+            // TravelDetailsWindow
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-            // Remove selected item from the listview
-            MessageBox.Show("Successfully removed travel!");
+            // Varför funkar inte detta????????????????????????
+            try
+            {
+                ListViewItem currentSelectedTravelToRemove = new();
+                currentSelectedTravelToRemove = (ListViewItem)lvTravels.SelectedItem;
+                Travel selectedTravel = (Travel)currentSelectedTravelToRemove.Tag;
+                TravelManager.RemoveTravel(selectedTravel);
+                MessageBox.Show("Successfully removed travel!");
+
+            }
+            catch
+            {
+                MessageBox.Show("Please select a destination.");
+            }
         }
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
