@@ -12,25 +12,22 @@ namespace TravelPal
             LoadDefaultAccounts();
         }
 
-
-
-
-
-
-
-
-
-
-
         private void LoadDefaultAccounts()
         {
             CreateUser("Gandalf", "asd", "Mordor");
+            CreateAdmin("qwe", "asd", "Osby");
         }
 
         public void CreateUser(string userName, string password, string country)
         {
             User user = new(userName, password, country);
             Accounts.Add(user);
+        }
+
+        public void CreateAdmin(string userName, string password, string country)
+        {
+            Admin admin = new(userName, password, country);
+            Accounts.Add(admin);
         }
 
         public List<IUser> FetchAccounts()

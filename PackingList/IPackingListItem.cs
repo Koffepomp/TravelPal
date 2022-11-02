@@ -2,6 +2,8 @@
 {
     public interface IPackingListItem
     {
-        string name { get; }
+        public string Name { get; set; }
+
+        public string GetInfo();
     }
 }

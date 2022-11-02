@@ -2,7 +2,21 @@
 {
     public class TravelDocument : IPackingListItem
     {
-        public string name { get; set; }
-        public bool isRequired { get; set; }
+        public string Name { get; set; }
+        public bool IsRequired { get; set; }
+
+        public TravelDocument(string name, bool isRequired)
+        {
+            Name = name;
+            IsRequired = isRequired;
+        }
+
+        public string GetInfo()
+        {
+            if (IsRequired)
+                return $"{Name} required!";
+            else
+                return $"{Name} not required!";
+        }
     }
 }

@@ -2,7 +2,18 @@
 {
     public class OtherItem : IPackingListItem
     {
-        public string name { get; set; }
-        public int quantity { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+
+        public OtherItem(string name, int quantity)
+        {
+            Name = name;
+            Quantity = quantity;
+        }
+
+        public string GetInfo()
+        {
+            return $"[{Quantity}] {Name}";
+        }
     }
 }

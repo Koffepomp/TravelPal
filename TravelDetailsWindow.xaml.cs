@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using TravelPal.Accounts;
+using TravelPal.PackingList;
 using TravelPal.Travels;
 
 namespace TravelPal
@@ -25,6 +26,12 @@ namespace TravelPal
 
         private void LoadTravelDetails()
         {
+            foreach (IPackingListItem item in Travel.PackingList)
+            {
+                lvInventory.Items.Add(item.GetInfo());
+            }
+
+
             tbDestination.Text = Travel.Destination;
             cbCountry.Items.Add(Travel.Country);
             cbCountry.SelectedIndex = 0;

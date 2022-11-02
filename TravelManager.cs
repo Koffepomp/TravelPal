@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TravelPal.Enums;
+using TravelPal.PackingList;
 using TravelPal.Travels;
 
 namespace TravelPal
@@ -26,7 +27,8 @@ namespace TravelPal
             string tripOrVacation,
             string tripType,
             bool isAllInclusive,
-            DateTime selectedDate
+            DateTime selectedDate,
+            List<IPackingListItem> packList
             )
         {
             Travel newTravel = new(
@@ -36,7 +38,8 @@ namespace TravelPal
                 tripOrVacation,
                 tripType,
                 isAllInclusive,
-                selectedDate
+                selectedDate,
+                packList
                 );
             Travels.Add(newTravel);
         }

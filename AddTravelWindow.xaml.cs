@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using TravelPal.Accounts;
 using TravelPal.Enums;
+using TravelPal.PackingList;
 
 namespace TravelPal
 {
@@ -73,7 +75,39 @@ namespace TravelPal
 
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
-            ResetInventoryFields();
+
+            try
+            {
+                string itemName = tbItemName.Text;
+                if ((bool)chbxDocument.IsChecked)
+                {
+                    // det är ett dokument
+                    bool isRequired = (bool)chbxRequired.IsChecked;
+                    TravelDocument travelDocument = new(itemName, isRequired);
+                    AddToListView(travelDocument);
+                }
+                else
+                {
+                    // lägg till item
+                    int itemAmount = Convert.ToInt32(tbItemAmount.Text);
+                    OtherItem otherItem = new(itemName, itemAmount);
+                    AddToListView(otherItem);
+                }
+                ResetInventoryFields();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void AddToListView(IPackingListItem newItem)
+        {
+            ListViewItem newListViewItem = new();
+            newListViewItem.Content = newItem.GetInfo();
+            newListViewItem.Tag = newItem;
+
+            lvInventory.Items.Add(newListViewItem);
         }
 
         private void ToggleAmountAndRequiredVisibility()
@@ -129,6 +163,8 @@ namespace TravelPal
         {
             try
             {
+                List<IPackingListItem> packList = CreateList();
+
                 if (cbTripVacation.SelectedIndex == 0 && cbTripType.SelectedItem == null)
                 {
                     throw new Exception("Select a trip type.");
@@ -156,7 +192,8 @@ namespace TravelPal
                     cbTripVacation.SelectedItem.ToString(),
                     cbTripType.SelectedItem.ToString(),
                     (bool)chbxAllInclusive.IsChecked,
-                    (DateTime)cldDates.SelectedDate
+                    (DateTime)cldDates.SelectedDate,
+                    packList
                     );
 
                 ((TravelsWindow)this.Owner).UpdateTravelListView();
@@ -174,6 +211,17 @@ namespace TravelPal
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private List<IPackingListItem> CreateList()
+        {
+            List<IPackingListItem> packList = new();
+            foreach (ListViewItem item in lvInventory.Items)
+            {
+                packList.Add((IPackingListItem)item.Tag);
+            }
+
+            return packList;
         }
     }
 }

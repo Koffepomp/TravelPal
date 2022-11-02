@@ -146,6 +146,7 @@
             Margin="5"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
+            Visibility="Hidden"
             />
 
         <CheckBox
@@ -156,6 +157,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             IsEnabled="False"
+            Visibility="Hidden"
             />
 
 
@@ -172,6 +174,7 @@
             />
 
         <ListView
+            Name="lvInventory"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Grid.Row="6"
