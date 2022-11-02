@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using TravelPal.Accounts;
 using TravelPal.Travels;
@@ -73,33 +74,36 @@ namespace TravelPal
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
-            // Close Travelswindow and open traveldetailswindow
-            ListViewItem currentSelectedTravelDetails = new();
-            currentSelectedTravelDetails = (ListViewItem)lvTravels.SelectedItem;
-            Travel selectedTravel = (Travel)currentSelectedTravelDetails.Tag;
-
-            // TravelDetailsWindow
-            TravelDetailsWindow travelDetailsWindow = new(UserManager, User, TravelManager, selectedTravel);
-            travelDetailsWindow.Owner = this;
-            travelDetailsWindow.Show();
-            this.Hide();
+            try
+            {
+                TravelDetailsWindow travelDetailsWindow = new(UserManager, User, TravelManager, GetSelectedItem());
+                travelDetailsWindow.Owner = this;
+                travelDetailsWindow.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                UpdateTravelListView();
+            }
         }
 
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
-            // Varför funkar inte detta????????????????????????
             try
             {
-                ListViewItem currentSelectedTravelToRemove = new();
-                currentSelectedTravelToRemove = (ListViewItem)lvTravels.SelectedItem;
-                Travel selectedTravel = (Travel)currentSelectedTravelToRemove.Tag;
-                TravelManager.RemoveTravel(selectedTravel);
-                UpdateTravelListView();
+                TravelManager.RemoveTravel(GetSelectedItem());
                 MessageBox.Show("Successfully removed travel!");
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a destination.");
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
                 UpdateTravelListView();
             }
         }
@@ -107,6 +111,18 @@ namespace TravelPal
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             // Help user with some information
+        }
+
+        private Travel GetSelectedItem()
+        {
+            if (lvTravels.SelectedItem == null)
+            {
+                throw new Exception("Please select a travel.");
+            }
+            ListViewItem currentSelectedTravel = new();
+            currentSelectedTravel = (ListViewItem)lvTravels.SelectedItem;
+            Travel selectedTravel = (Travel)currentSelectedTravel.Tag;
+            return selectedTravel;
         }
     }
 }

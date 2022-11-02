@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using TravelPal.Accounts;
@@ -24,6 +25,7 @@ namespace TravelPal
             cbTripVacation.Items.Add("Vacation");
             cbTripType.Items.Add("Work");
             cbTripType.Items.Add("Leisure");
+            cbTripType.SelectedIndex = 0;
             AddCountriesToComboBox();
             tbFrom.Text = user.Country;
         }
@@ -127,30 +129,51 @@ namespace TravelPal
         {
             try
             {
+                if (cbTripVacation.SelectedIndex == 0 && cbTripType.SelectedItem == null)
+                {
+                    throw new Exception("Select a trip type.");
+                }
+
+                if (tbDestination.Text.Count() <= 0 ||
+                    cbCountry.SelectedItem == null ||
+                    tbTravelers.Text.Count() <= 0 ||
+                    cbTripVacation.SelectedItem == null
+                    )
+                {
+                    throw new Exception("Please fill out all fields.");
+                }
+
+                if (cldDates.SelectedDate == null)
+                {
+                    throw new Exception("Select travel dates in the calendar.");
+                }
+
+                int travelers = Convert.ToInt32(tbTravelers.Text);
                 TravelManager.AddTravel(
                     tbDestination.Text,
                     (Countries)cbCountry.SelectedItem,
-                    Convert.ToInt32(tbTravelers.Text),
+                    travelers,
                     cbTripVacation.SelectedItem.ToString(),
                     cbTripType.SelectedItem.ToString(),
                     (bool)chbxAllInclusive.IsChecked,
-                    (DateTime)calDates.SelectedDate
+                    (DateTime)cldDates.SelectedDate
                     );
-            }
-            catch
-            {
-                MessageBox.Show("Fill out all fields.");
-            }
 
-            ((TravelsWindow)this.Owner).UpdateTravelListView();
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window.GetType().Name == "TravelsWindow")
+                ((TravelsWindow)this.Owner).UpdateTravelListView();
+                foreach (Window window in Application.Current.Windows)
                 {
-                    window.Show();
+                    if (window.GetType().Name == "TravelsWindow")
+                    {
+                        window.Show();
+                    }
                 }
+                Close();
+
             }
-            Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

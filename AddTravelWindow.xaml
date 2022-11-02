@@ -316,12 +316,13 @@
             Click="chbxDocument_Click"
             />
         <Calendar
-            Name="calDates"
+            Name="cldDates"
             Grid.Column="4"
             Grid.ColumnSpan="2"
             Grid.Row="5"
             Margin="10"
             VerticalAlignment="Center"
+            SelectionMode="MultipleRange"
             />
     </Grid>
 </Window>
