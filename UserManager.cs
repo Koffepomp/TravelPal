@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TravelPal.Accounts;
+using TravelPal.Enums;
 
 namespace TravelPal
 {
@@ -14,17 +15,17 @@ namespace TravelPal
 
         private void LoadDefaultAccounts()
         {
-            CreateUser("Gandalf", "asd", "Mordor");
-            CreateAdmin("qwe", "asd", "Osby");
+            CreateUser("Gandalf", "asd", Countries.United_States);
+            CreateAdmin("qwe", "asd", Countries.Afghanistan);
         }
 
-        public void CreateUser(string userName, string password, string country)
+        public void CreateUser(string userName, string password, Countries country)
         {
             User user = new(userName, password, country);
             Accounts.Add(user);
         }
 
-        public void CreateAdmin(string userName, string password, string country)
+        public void CreateAdmin(string userName, string password, Countries country)
         {
             Admin admin = new(userName, password, country);
             Accounts.Add(admin);

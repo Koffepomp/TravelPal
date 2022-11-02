@@ -11,14 +11,14 @@ namespace TravelPal
     public partial class UserDetailsWindow : Window
     {
         UserManager UserManager;
-        IUser User;
-        public UserDetailsWindow(UserManager userManager, IUser user)
+        IUser SignedInUser;
+        public UserDetailsWindow(UserManager userManager, IUser signedInUser)
         {
             UserManager = userManager;
-            User = user;
+            SignedInUser = signedInUser;
             InitializeComponent();
-            tbUsername.Text = user.Username;
-            cbCountry.Items.Add(user.Country);
+            tbUsername.Text = signedInUser.Username;
+            cbCountry.Items.Add(signedInUser.Location);
             cbCountry.SelectedIndex = 0;
         }
         private void AddCountriesToComboBox()

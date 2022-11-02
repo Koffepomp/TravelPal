@@ -17,6 +17,7 @@ namespace TravelPal
         UserManager UserManager;
         IUser User;
         TravelManager TravelManager;
+
         public AddTravelWindow(UserManager userManager, IUser user, TravelManager travelManager)
         {
             UserManager = userManager;

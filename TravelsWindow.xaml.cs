@@ -12,17 +12,17 @@ namespace TravelPal
     public partial class TravelsWindow : Window
     {
         UserManager UserManager;
-        IUser User;
+        IUser SignedInUser;
         TravelManager TravelManager;
 
-        public TravelsWindow(UserManager userManager, IUser user, TravelManager travelManager)
+        public TravelsWindow(UserManager userManager, IUser signedInUser, TravelManager travelManager)
         {
             InitializeComponent();
             UserManager = userManager;
-            User = user;
+            SignedInUser = signedInUser;
             TravelManager = travelManager;
             // Shows username as logged in
-            lblUsername.Content = user.Username.ToUpper();
+            lblUsername.Content = signedInUser.Username.ToUpper();
 
             // IF ADMIN HERE
 
@@ -45,7 +45,7 @@ namespace TravelPal
         private void btnUserSettings_Click(object sender, RoutedEventArgs e)
         {
             // Close Travelswindow and open usersettings
-            UserDetailsWindow userDetailsWindow = new(UserManager, User);
+            UserDetailsWindow userDetailsWindow = new(UserManager, SignedInUser);
             userDetailsWindow.Show();
             this.Hide();
         }
@@ -66,7 +66,7 @@ namespace TravelPal
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             // Close Travelswindow and open addtravelwindow
-            AddTravelWindow addTravelWindow = new(UserManager, User, TravelManager);
+            AddTravelWindow addTravelWindow = new(UserManager, SignedInUser, TravelManager);
             addTravelWindow.Owner = this;
             addTravelWindow.Show();
             this.Hide();
@@ -76,7 +76,7 @@ namespace TravelPal
         {
             try
             {
-                TravelDetailsWindow travelDetailsWindow = new(UserManager, User, TravelManager, GetSelectedItem());
+                TravelDetailsWindow travelDetailsWindow = new(UserManager, SignedInUser, TravelManager, GetSelectedItem());
                 travelDetailsWindow.Owner = this;
                 travelDetailsWindow.Show();
                 this.Hide();
