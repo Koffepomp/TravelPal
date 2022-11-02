@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TravelPal.Enums;
 using TravelPal.Travels;
 
@@ -18,9 +19,25 @@ namespace TravelPal
             return Travels;
         }
 
-        public void AddTravel(string destination, Countries country, int travellers)
+        public void AddTravel(
+            string destination,
+            Countries country,
+            int travellers,
+            string tripOrVacation,
+            string tripType,
+            bool isAllInclusive,
+            DateTime selectedDate
+            )
         {
-            Travel newTravel = new(destination, country, travellers);
+            Travel newTravel = new(
+                destination,
+                country,
+                travellers,
+                tripOrVacation,
+                tripType,
+                isAllInclusive,
+                selectedDate
+                );
             Travels.Add(newTravel);
         }
 

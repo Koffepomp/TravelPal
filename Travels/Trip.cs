@@ -1,4 +1,5 @@
-﻿using TravelPal.Enums;
+﻿using System;
+using TravelPal.Enums;
 
 namespace TravelPal.Travels
 {
@@ -6,7 +7,7 @@ namespace TravelPal.Travels
     {
         public TripTypes Triptype { get; set; }
 
-        public Trip(TripTypes triptype, string destination, Countries country, int travellers) : base(destination, country, travellers)
+        public Trip(TripTypes triptype, string destination, Countries country, int travellers, string tripOrVacation, string tripType, bool isAllInclusive, DateTime selectedDate) : base(destination, country, travellers, tripOrVacation, tripType, isAllInclusive, selectedDate)
         {
             Triptype = triptype;
 

@@ -22,6 +22,8 @@ namespace TravelPal
             InitializeComponent();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
+            cbTripType.Items.Add("Work");
+            cbTripType.Items.Add("Leisure");
             AddCountriesToComboBox();
             tbFrom.Text = user.Country;
         }
@@ -123,7 +125,23 @@ namespace TravelPal
 
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
-            TravelManager.AddTravel(tbDestination.Text, (Countries)cbCountry.SelectedItem, Convert.ToInt32(tbTravelers.Text));
+            try
+            {
+                TravelManager.AddTravel(
+                    tbDestination.Text,
+                    (Countries)cbCountry.SelectedItem,
+                    Convert.ToInt32(tbTravelers.Text),
+                    cbTripVacation.SelectedItem.ToString(),
+                    cbTripType.SelectedItem.ToString(),
+                    (bool)chbxAllInclusive.IsChecked,
+                    (DateTime)calDates.SelectedDate
+                    );
+            }
+            catch
+            {
+                MessageBox.Show("Fill out all fields.");
+            }
+
             ((TravelsWindow)this.Owner).UpdateTravelListView();
             foreach (Window window in Application.Current.Windows)
             {

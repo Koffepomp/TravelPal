@@ -31,6 +31,27 @@ namespace TravelPal
             tbTravelers.Text = Travel.Travellers.ToString();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
+            cbTripType.Items.Add("Work");
+            cbTripType.Items.Add("Leisure");
+            if (Travel.TripOrVacation == "Trip")
+            {
+                cbTripVacation.SelectedIndex = 0;
+                cbTripType.Visibility = Visibility.Visible;
+                if (Travel.TripType == "Work")
+                {
+                    cbTripType.SelectedIndex = 0;
+                }
+                else if (Travel.TripType == "Leisure")
+                {
+                    cbTripType.SelectedIndex = 1;
+                }
+            }
+            else if (Travel.TripOrVacation == "Vacation")
+            {
+                cbTripVacation.SelectedIndex = 1;
+                chbxAllInclusive.Visibility = Visibility.Visible;
+                lblAllInclusive.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
