@@ -6,7 +6,9 @@ namespace TravelPal
 {
     public class UserManager
     {
-        List<IUser> Accounts = new();
+        public List<IUser> Users { get; set; } = new();
+
+        public IUser signedInUser { get; set; }
         public UserManager()
         {
             // Loads the default login accounts on startup (Gandalf and Admin)
@@ -22,18 +24,18 @@ namespace TravelPal
         public void CreateUser(string userName, string password, Countries country)
         {
             User user = new(userName, password, country);
-            Accounts.Add(user);
+            Users.Add(user);
         }
 
         public void CreateAdmin(string userName, string password, Countries country)
         {
             Admin admin = new(userName, password, country);
-            Accounts.Add(admin);
+            Users.Add(admin);
         }
 
         public List<IUser> FetchAccounts()
         {
-            return Accounts;
+            return Users;
         }
     }
 }

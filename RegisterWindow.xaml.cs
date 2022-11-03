@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using TravelPal.Accounts;
 using TravelPal.Enums;
 
 namespace TravelPal
@@ -27,17 +28,44 @@ namespace TravelPal
 
         private void btnRegisterAccount_Click(object sender, RoutedEventArgs e)
         {
-            // Close RegisterWindow and open MainWindow
-            UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, (Countries)cbRegisterCountry.SelectedItem);
-            foreach (Window window in Application.Current.Windows)
+            bool isUsernameTaken = false;
+            string compareUsername = "";
+
+            foreach (IUser pomp in UserManager.Users)
             {
-                if (window.GetType().Name == "MainWindow")
+                if (pomp.Username == compareUsername)
                 {
-                    window.Show();
+                    isUsernameTaken = true;
                 }
             }
-            this.Close();
-            Close();
+
+            if (!isUsernameTaken)
+            {
+                if (tbRegisterPassword.Text == tbRegisterConfirmPassword.Text)
+                {
+                    UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, (Countries)cbRegisterCountry.SelectedItem);
+                    MessageBox.Show("Account creation complete!");
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window.GetType().Name == "MainWindow")
+                        {
+                            window.Show();
+                        }
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Passwords mismatch! Please enter again.");
+                    tbRegisterPassword.Clear();
+                    tbRegisterConfirmPassword.Clear();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Username already taken! Please enter a new one.");
+            }
+
         }
     }
 }
