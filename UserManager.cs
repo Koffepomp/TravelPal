@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using TravelPal.Accounts;
-using TravelPal.Enums;
 
 namespace TravelPal
 {
@@ -8,7 +7,7 @@ namespace TravelPal
     {
         public List<IUser> Users { get; set; } = new();
 
-        public IUser signedInUser { get; set; }
+        public IUser SignedInUser { get; set; }
         public UserManager()
         {
             // Loads the default login accounts on startup (Gandalf and Admin)
@@ -17,25 +16,45 @@ namespace TravelPal
 
         private void LoadDefaultAccounts()
         {
-            CreateUser("Gandalf", "asd", Countries.United_States);
-            CreateAdmin("qwe", "asd", Countries.Afghanistan);
+            //CreateUser("Gandalf", "asd", Countries.United_States);
+            //CreateAdmin("qwe", "asd", Countries.Afghanistan);
         }
 
-        public void CreateUser(string userName, string password, Countries country)
+        public bool CreateUser(IUser user)
         {
-            User user = new(userName, password, country);
-            Users.Add(user);
+            //User user = new(userName, password, country);
+            //Users.Add(user);
+            bool booljävel = true;
+            return booljävel;
         }
 
-        public void CreateAdmin(string userName, string password, Countries country)
+        public bool UpdateUsername(IUser user, string updateName)
         {
-            Admin admin = new(userName, password, country);
-            Users.Add(admin);
+            //gammalt namn = updateName
+            bool newName = true;
+            return newName;
         }
 
-        public List<IUser> FetchAccounts()
+        private bool ValidateUsername(username)
         {
-            return Users;
+
+            return boolnått;
         }
+
+        public bool SignInUser(username, password)
+        {
+            return booljapp;
+        }
+
+        //public void CreateAdmin(string userName, string password, Countries country)
+        //{
+        //    Admin admin = new(userName, password, country);
+        //    Users.Add(admin);
+        //}
+
+        //public List<IUser> FetchAccounts()
+        //{
+        //    return Users;
+        //}
     }
 }

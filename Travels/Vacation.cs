@@ -13,5 +13,10 @@ namespace TravelPal.Travels
         {
             //IsAllInclusive = isAllInclusive;
         }
+        public string GetInfo()
+        {
+            string info = $"";
+            return info;
+        }
     }
 }
