@@ -39,15 +39,21 @@ namespace TravelPal
             tbTravelers.Text = Travel.Travellers.ToString();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
+            lblStartDate.Content = Travel.StartDate;
+            lblEndDate.Content = Travel.EndDate;
+            foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
+            {
+                cbTripType.Items.Add(tripType);
+            }
             if (Travel.GetType().Name == "Trip")
             {
                 cbTripVacation.SelectedIndex = 0;
                 cbTripType.Visibility = Visibility.Visible;
-                if (((Trip)Travel).Type.ToString() == "Work")
+                if (((Trip)Travel).Type.ToString() == "Leisure")
                 {
                     cbTripType.SelectedIndex = 0;
                 }
-                else if (((Trip)Travel).Type.ToString() == "Leisure")
+                else if (((Trip)Travel).Type.ToString() == "Work")
                 {
                     cbTripType.SelectedIndex = 1;
                 }

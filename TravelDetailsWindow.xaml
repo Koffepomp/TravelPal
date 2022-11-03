@@ -171,12 +171,15 @@
             />
 
         <Label
+            Name="lblStartDate"
             Content="startDate"
             Grid.Column="3"
             Grid.Row="7"
             FontSize="10"
+            Margin="-10"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
+
             />
 
         <Label
@@ -190,12 +193,14 @@
             />
 
         <Label
+            Name="lblEndDate"
             Content="endDate"
             Grid.Column="3"
             Grid.Row="8"
             FontSize="10"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
+                        Margin="-10"
             />
 
         <Label

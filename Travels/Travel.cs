@@ -21,7 +21,7 @@ namespace TravelPal.Travels
 
         public string GetInfo()
         {
-            string info = $"[{Owner}]: {Country} for {TravelDays} days.";
+            string info = $"[{Owner.Username}]: {Country} for {TravelDays} days.";
             //if (IUser.GetType().Name == "Admin")
             //{
             //    info = $"[{Owner}]: {Country} for {TravelDays} days";

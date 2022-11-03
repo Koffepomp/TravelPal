@@ -55,8 +55,8 @@ namespace TravelPal
             foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
             {
                 cbTripType.Items.Add(tripType);
-                cbTripType.SelectedIndex = 0;
             }
+            cbTripType.SelectedIndex = 0;
         }
 
         private void cbTripVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
