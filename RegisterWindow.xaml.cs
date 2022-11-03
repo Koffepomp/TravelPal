@@ -31,9 +31,9 @@ namespace TravelPal
             bool isUsernameTaken = false;
             string compareUsername = "";
 
-            foreach (IUser pomp in UserManager.Users)
+            foreach (IUser user in UserManager.Users)
             {
-                if (pomp.Username == compareUsername)
+                if (user.Username == compareUsername)
                 {
                     isUsernameTaken = true;
                 }
@@ -57,8 +57,8 @@ namespace TravelPal
                 else
                 {
                     MessageBox.Show("Passwords mismatch! Please enter again.");
-                    tbRegisterPassword.Clear();
-                    tbRegisterConfirmPassword.Clear();
+                    //tbRegisterPassword.Clear();
+                    //tbRegisterConfirmPassword.Clear();
                 }
             }
             else
@@ -66,6 +66,19 @@ namespace TravelPal
                 MessageBox.Show("Username already taken! Please enter a new one.");
             }
 
+        }
+
+        private void tbRegisterUsername_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            lblUsernameTaken.Visibility = Visibility.Hidden;
+            foreach (IUser user in UserManager.Users)
+            {
+                string username = user.Username;
+                if (username == tbRegisterUsername.Text)
+                {
+                    lblUsernameTaken.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 }

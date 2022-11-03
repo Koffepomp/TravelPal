@@ -111,6 +111,13 @@ namespace TravelPal
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             // Help user with some information
+            MessageBox.Show("Going on a work trip? Taking a vacation? Allow us to simplify your travels.\r\n" +
+                "Enjoy endless possibilities while managing your travel on the go.\r\n" +
+                "Never forget your belongings with our customizable packing list system!\r\n\r\n" +
+                "Thank you for picking TravelPal as your vacation companion.\r\n" +
+                "We hope you enjoy your trip as much as we enjoy taking your money.\r\n\r\n" +
+                "- Bernt Pompsson, Chief Executive Officer"
+                );
         }
 
         private Travel GetSelectedItem()

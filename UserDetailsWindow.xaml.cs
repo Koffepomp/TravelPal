@@ -44,20 +44,40 @@ namespace TravelPal
 
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            // Saves new changes to user account and return to Travels Window
-            MessageBox.Show("New settings saved!");
-            foreach (Window window in Application.Current.Windows)
+            // KOLLA OM ANVÄNDARNAMN FINNS REDAN. Samma som från registerwindow
+
+            if (tbUsername.Text.Length < 3)
             {
-                if (window.GetType().Name == "TravelsWindow")
-                {
-                    window.Show();
-                }
+                MessageBox.Show("Username too short. (3-16 characters)");
             }
-            btnChangeUsername.Visibility = Visibility.Visible;
-            btnChangeCountry.Visibility = Visibility.Visible;
-            tbUsername.IsEnabled = false;
-            cbCountry.IsEnabled = false;
-            Close();
+            else if (tbNewPassword.Text != tbNewConfirmPassword.Text)
+            {
+                MessageBox.Show("Passwords mismatch! Please enter again.");
+            }
+            else if (tbNewPassword.Text.Length < 5)
+            {
+                MessageBox.Show("Password too short. (5-16 characters)");
+            }
+            else
+            {
+                tbUsername.Text = SignedInUser.Username;
+                cbCountry.SelectedItem = SignedInUser.Location;
+                tbNewConfirmPassword.Text = SignedInUser.Password;
+
+                MessageBox.Show("New settings saved!");
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.GetType().Name == "TravelsWindow")
+                    {
+                        window.Show();
+                    }
+                }
+                btnChangeUsername.Visibility = Visibility.Visible;
+                btnChangeCountry.Visibility = Visibility.Visible;
+                tbUsername.IsEnabled = false;
+                cbCountry.IsEnabled = false;
+                Close();
+            }
         }
 
         private void btnChangeUsername_Click(object sender, RoutedEventArgs e)
