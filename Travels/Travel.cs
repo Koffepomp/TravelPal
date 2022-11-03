@@ -21,7 +21,11 @@ namespace TravelPal.Travels
 
         public string GetInfo()
         {
-            string info = $"{Country} for 3 days";
+            string info = $"[{Owner}]: {Country} for {TravelDays} days.";
+            //if (IUser.GetType().Name == "Admin")
+            //{
+            //    info = $"[{Owner}]: {Country} for {TravelDays} days";
+            //}
             return info;
         }
         public Travel(string destination, Countries country, int travellers, DateTime startDate, DateTime endDate, int travelDays, List<IPackingListItem> packingList, IUser owner)

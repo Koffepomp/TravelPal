@@ -160,9 +160,46 @@
             Visibility="Hidden"
             />
 
+        <Label
+            Content="TRAVEL START:"
+            Grid.Column="3"
+            Grid.Row="6"
+            FontSize="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontWeight="Bold"
+            />
 
         <Label
-            Content="INVENTORY"
+            Content="startDate"
+            Grid.Column="3"
+            Grid.Row="7"
+            FontSize="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            />
+
+        <Label
+            Content="TRAVEL END:"
+            Grid.Column="3"
+            Grid.Row="7"
+            FontSize="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            FontWeight="Bold"
+            />
+
+        <Label
+            Content="endDate"
+            Grid.Column="3"
+            Grid.Row="8"
+            FontSize="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            />
+
+        <Label
+            Content="PACKLIST:"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Grid.Row="5"

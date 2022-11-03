@@ -175,7 +175,7 @@
             />
 
         <Label
-            Content="INVENTORY"
+            Content="PACKLIST:"
             Grid.Column="1"
             Grid.ColumnSpan="3"
             Grid.Row="4"
@@ -326,6 +326,19 @@
             VerticalAlignment="Center"
             SelectionMode="MultipleRange"
             SelectedDatesChanged="cldDates_SelectedDatesChanged"
+            />
+
+        <Label
+            Content="Click the date you wish to depart.&#10;To choose multiple dates hold left&#10;   click and drag over the dates."
+            Grid.Column="4"
+            Grid.ColumnSpan="2"
+            Grid.Row="5"
+            FontSize="10"
+            Margin="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            HorizontalContentAlignment="Center"
+            FontStyle="Italic"
             />
     </Grid>
 </Window>

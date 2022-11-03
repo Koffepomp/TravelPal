@@ -219,7 +219,7 @@ namespace TravelPal
 
                 if (cbTripVacation.SelectedIndex == 0)
                 {
-                    Trip trip = new((TripTypes)cbTripType.SelectedItem, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, startDate, endDate, travelDays, packList, SignedInUser);
+                    Trip trip = new((TripTypes)cbTripType.SelectedItem, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, cldDates.SelectedDates[0], cldDates.SelectedDates[cldDates.SelectedDates.Count() - 1], cldDates.SelectedDates.Count(), packList, SignedInUser);
                     ((User)SignedInUser).GetAllTravels().Add(trip);
                     TravelManager.AddTravel(trip);
 
@@ -227,7 +227,7 @@ namespace TravelPal
                 else
                 {
                     // vacation
-                    Vacation vacation = new((bool)chbxAllInclusive.IsChecked, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, startDate, endDate, travelDays, packList, SignedInUser);
+                    Vacation vacation = new((bool)chbxAllInclusive.IsChecked, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, cldDates.SelectedDates[0], cldDates.SelectedDates[cldDates.SelectedDates.Count() - 1], cldDates.SelectedDates.Count(), packList, SignedInUser);
                     ((User)SignedInUser).GetAllTravels().Add(vacation);
                     TravelManager.AddTravel(vacation);
                 }
@@ -262,11 +262,6 @@ namespace TravelPal
 
         private void cldDates_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            travelDays = cldDates.SelectedDates.Count;
-            firstDate =
-            startDate = cldDates.SelectedDates[0];
-            endDate = startDate + travelDays;
-
             Mouse.Capture(null);
         }
 
