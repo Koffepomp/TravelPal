@@ -70,8 +70,8 @@
             VerticalAlignment="Bottom"
             />
 
-        <TextBox
-            Name="tbPassword"
+        <PasswordBox
+            Name="pbPassword"
             Grid.Column="1"
             Grid.Row="4"
             Margin="5"

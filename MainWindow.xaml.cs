@@ -36,10 +36,10 @@ namespace TravelPal
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string inputUsername = tbUsername.Text;
-            string inputPassword = tbPassword.Text;
+            string inputPassword = pbPassword.Password;
             if (userManager.SignInUser(inputUsername, inputPassword))
             {
-                tbPassword.Clear();
+                pbPassword.Clear();
                 // Close Main window and open TravelsWindow
                 TravelsWindow travelsWindow = new(userManager, userManager.SignedInUser, travelManager);
                 travelsWindow.Show();
@@ -48,7 +48,7 @@ namespace TravelPal
             else
             {
                 MessageBox.Show("Wrong username or password!");
-                tbPassword.Clear();
+                pbPassword.Clear();
             }
         }
 

@@ -48,15 +48,15 @@ namespace TravelPal
             {
                 MessageBox.Show("Username too short. (3-16 characters)");
             }
-            else if (tbNewPassword.Text != tbNewConfirmPassword.Text)
+            else if (pbNewPassword.Password != pbNewConfirmPassword.Password)
             {
                 MessageBox.Show("Passwords mismatch! Please enter again.");
             }
-            else if (tbNewPassword.Text.Length == 0)
+            else if (pbNewPassword.Password.Length == 0)
             {
                 MessageBox.Show("Please enter a new password.");
             }
-            else if (tbNewPassword.Text.Length > 0 && tbNewPassword.Text.Length < 5)
+            else if (pbNewPassword.Password.Length > 0 && pbNewPassword.Password.Length < 5)
             {
                 MessageBox.Show("Password too short. (5-16 characters)");
             }
@@ -67,7 +67,7 @@ namespace TravelPal
                     UserManager.UpdateUsername(SignedInUser, tbUsername.Text);
                 }
                 SignedInUser.Location = (Countries)cbCountry.SelectedItem;
-                SignedInUser.Password = tbNewConfirmPassword.Text;
+                SignedInUser.Password = pbNewConfirmPassword.Password;
 
                 ((TravelsWindow)this.Owner).UpdateTravelWindow();
                 foreach (Window window in Application.Current.Windows)

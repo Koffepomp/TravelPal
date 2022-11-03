@@ -28,9 +28,9 @@ namespace TravelPal
 
         private void btnRegisterAccount_Click(object sender, RoutedEventArgs e)
         {
-            User user = new(tbRegisterUsername.Text, tbRegisterPassword.Text, (Countries)cbRegisterCountry.SelectedItem);
+            User user = new(tbRegisterUsername.Text, pbRegisterPassword.Password, (Countries)cbRegisterCountry.SelectedItem);
 
-            if (tbRegisterPassword.Text == tbRegisterConfirmPassword.Text)
+            if (pbRegisterPassword.Password == pbRegisterConfirmPassword.Password)
             {
                 if (UserManager.AddUser(user))
                 {
