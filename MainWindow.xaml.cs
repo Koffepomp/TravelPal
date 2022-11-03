@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using TravelPal.Accounts;
+﻿using System.Windows;
 
 namespace TravelPal
 {
@@ -27,28 +25,26 @@ namespace TravelPal
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            List<IUser> Accounts = userManager.FetchAccounts();
             string inputUsername = tbUsername.Text;
             string inputPassword = tbPassword.Text;
-            bool loginAuthenticated = false;
-
-            foreach (IUser user in Accounts)
+            if (userManager.SignInUser(inputUsername, inputPassword))
             {
-                if (user.Username == inputUsername && user.Password == inputPassword)
-                {
-                    loginAuthenticated = true;
-                    tbPassword.Clear();
-                    // Close Main window and open TravelsWindow
-                    TravelsWindow travelsWindow = new(userManager, user, travelManager);
-                    travelsWindow.Show();
-                    this.Hide();
-                }
+                tbPassword.Clear();
+                // Close Main window and open TravelsWindow
+                TravelsWindow travelsWindow = new(userManager, userManager.SignedInUser, travelManager);
+                travelsWindow.Show();
+                this.Hide();
             }
-            if (!loginAuthenticated)
+            else
             {
                 MessageBox.Show("Wrong username or password!");
                 tbPassword.Clear();
             }
+        }
+
+        private void btnForgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Unlucky.");
         }
     }
 }

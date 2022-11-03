@@ -12,6 +12,12 @@ namespace TravelPal.Accounts
             Username = userName;
             Password = password;
             Location = country;
+
+        }
+
+        public void IUser(string username, string password, Countries location)
+        {
+
         }
     }
 }

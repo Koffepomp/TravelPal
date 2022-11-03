@@ -17,5 +17,15 @@ namespace TravelPal.Accounts
             Password = password;
             Location = location;
         }
+
+        public void IUser(string username, string password, Countries location)
+        {
+
+        }
+
+        public List<Travel> GetAllTravels()
+        {
+            return Travels;
+        }
     }
 }

@@ -103,5 +103,19 @@
             VerticalAlignment="Top"
             Click="btnRegister_Click"
             />
+
+        <Button Style="{DynamicResource RegisterButtonStyle}"
+            Name="btnForgotPassword"
+            Content="Forgot your password?"
+            Grid.Column="1"
+            Grid.Row="6"
+            Margin="20"
+            Width="140"
+            Height="20"
+            FontSize="10"
+            Foreground="Blue"
+            VerticalAlignment="Bottom"
+            Click="btnForgotPassword_Click"
+            />
     </Grid> 
 </Window>

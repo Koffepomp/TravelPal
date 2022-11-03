@@ -44,7 +44,15 @@ namespace TravelPal
 
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            // KOLLA OM ANVÄNDARNAMN FINNS REDAN. Samma som från registerwindow
+            //foreach (IUser user in UserManager.Users)
+            //{
+            //    string username = user.Username;
+            //    if (username == tbUsername.Text)
+            //    {
+            //        MessageBox.Show("Username too short. (3-16 characters)");
+            //        return;
+            //    }
+            //}
 
             if (tbUsername.Text.Length < 3)
             {
@@ -60,9 +68,12 @@ namespace TravelPal
             }
             else
             {
-                tbUsername.Text = SignedInUser.Username;
-                cbCountry.SelectedItem = SignedInUser.Location;
-                tbNewConfirmPassword.Text = SignedInUser.Password;
+                if (btnChangeUsername.Visibility == Visibility.Hidden)
+                {
+                    UserManager.UpdateUsername(SignedInUser, tbUsername.Text);
+                }
+                SignedInUser.Location = (Countries)cbCountry.SelectedItem;
+                SignedInUser.Password = tbNewConfirmPassword.Text;
 
                 MessageBox.Show("New settings saved!");
                 foreach (Window window in Application.Current.Windows)

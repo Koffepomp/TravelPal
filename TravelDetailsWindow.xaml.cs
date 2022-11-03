@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using TravelPal.Accounts;
+using TravelPal.Enums;
 using TravelPal.PackingList;
 using TravelPal.Travels;
 
@@ -31,30 +33,28 @@ namespace TravelPal
                 lvInventory.Items.Add(item.GetInfo());
             }
 
-
             tbDestination.Text = Travel.Destination;
             cbCountry.Items.Add(Travel.Country);
             cbCountry.SelectedIndex = 0;
             tbTravelers.Text = Travel.Travellers.ToString();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
-            cbTripType.Items.Add("Work");
-            cbTripType.Items.Add("Leisure");
-            if (Travel.TripOrVacation == "Trip")
+            if (Travel.GetType().Name == "Trip")
             {
                 cbTripVacation.SelectedIndex = 0;
                 cbTripType.Visibility = Visibility.Visible;
-                if (Travel.TripType == "Work")
+                if (((Trip)Travel).Type.ToString() == "Work")
                 {
                     cbTripType.SelectedIndex = 0;
                 }
-                else if (Travel.TripType == "Leisure")
+                else if (((Trip)Travel).Type.ToString() == "Leisure")
                 {
                     cbTripType.SelectedIndex = 1;
                 }
             }
-            else if (Travel.TripOrVacation == "Vacation")
+            else if (Travel.GetType().Name == "Vacation")
             {
+                chbxAllInclusive.IsChecked = ((Vacation)Travel).IsAllInclusive;
                 cbTripVacation.SelectedIndex = 1;
                 chbxAllInclusive.Visibility = Visibility.Visible;
                 lblAllInclusive.Visibility = Visibility.Visible;
@@ -69,14 +69,38 @@ namespace TravelPal
             tbDestination.IsEnabled = true;
             cbCountry.IsEnabled = true;
             tbTravelers.IsEnabled = true;
-            cbTripVacation.IsEnabled = true;
-            chbxAllInclusive.IsEnabled = true;
-            cbTripType.IsEnabled = true;
+            //cbTripVacation.IsEnabled = true;
+            //chbxAllInclusive.IsEnabled = true;
+            //cbTripType.IsEnabled = true;
+            AddCountriesToComboBox();
+            AddTripsToComboBox();
+        }
+
+        private void AddCountriesToComboBox()
+        {
+            cbCountry.Items.Clear();
+            foreach (Enum country in Enum.GetValues(typeof(Countries)))
+            {
+                cbCountry.Items.Add(country);
+            }
+        }
+
+        private void AddTripsToComboBox()
+        {
+            foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
+            {
+                cbTripType.Items.Add(tripType);
+                cbTripType.SelectedIndex = 0;
+            }
         }
 
         private void btnSaveTravel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("New travel details saved!");
+            Travel.Destination = tbDestination.Text;
+            Travel.Country = (Countries)cbCountry.SelectedItem;
+            int travelers = Convert.ToInt32(tbTravelers.Text);
+            Travel.Travellers = travelers;
+
             ((TravelsWindow)this.Owner).UpdateTravelListView();
             foreach (Window window in Application.Current.Windows)
             {

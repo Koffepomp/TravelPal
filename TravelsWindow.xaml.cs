@@ -25,7 +25,10 @@ namespace TravelPal
             lblUsername.Content = signedInUser.Username.ToUpper();
 
             // IF ADMIN HERE
-
+            if (signedInUser.GetType().Name == "Admin")
+            {
+                btnAddTravel.Visibility = Visibility.Hidden;
+            }
             UpdateTravelListView();
         }
 
@@ -33,13 +36,27 @@ namespace TravelPal
         {
             lvTravels.Items.Clear();
 
-            foreach (Travel travel in TravelManager.GetAllTravels())
+            if (SignedInUser.GetType().Name == "Admin")
             {
-                ListViewItem newTravelItem = new();
-                newTravelItem.Content = travel.GetInfo();
-                newTravelItem.Tag = travel;
-                lvTravels.Items.Add(newTravelItem);
+                foreach (Travel travel in TravelManager.GetAllTravels())
+                {
+                    ListViewItem newTravelItem = new();
+                    newTravelItem.Content = travel.GetInfo();
+                    newTravelItem.Tag = travel;
+                    lvTravels.Items.Add(newTravelItem);
+                }
             }
+            else
+            {
+                foreach (Travel travel in ((User)SignedInUser).GetAllTravels())
+                {
+                    ListViewItem newTravelItem = new();
+                    newTravelItem.Content = travel.GetInfo();
+                    newTravelItem.Tag = travel;
+                    lvTravels.Items.Add(newTravelItem);
+                }
+            }
+
         }
 
         private void btnUserSettings_Click(object sender, RoutedEventArgs e)

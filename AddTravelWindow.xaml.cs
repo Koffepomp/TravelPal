@@ -7,6 +7,7 @@ using System.Windows.Input;
 using TravelPal.Accounts;
 using TravelPal.Enums;
 using TravelPal.PackingList;
+using TravelPal.Travels;
 
 namespace TravelPal
 {
@@ -27,10 +28,8 @@ namespace TravelPal
             InitializeComponent();
             cbTripVacation.Items.Add("Trip");
             cbTripVacation.Items.Add("Vacation");
-            cbTripType.Items.Add("Work");
-            cbTripType.Items.Add("Leisure");
-            cbTripType.SelectedIndex = 0;
             AddCountriesToComboBox();
+            AddTripsToComboBox();
             tbFrom.Text = signedInUser.Location.ToString();
         }
 
@@ -39,6 +38,15 @@ namespace TravelPal
             foreach (Enum country in Enum.GetValues(typeof(Countries)))
             {
                 cbCountry.Items.Add(country);
+            }
+        }
+
+        private void AddTripsToComboBox()
+        {
+            foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
+            {
+                cbTripType.Items.Add(tripType);
+                cbTripType.SelectedIndex = 0;
             }
         }
 
@@ -161,6 +169,18 @@ namespace TravelPal
             Close();
         }
 
+        private bool IsCountryInEU(Countries countries)
+        {
+            foreach (EuropeanCountries country in Enum.GetValues(typeof(EuropeanCountries)))
+            {
+                if (country.ToString() == countries.ToString())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -187,16 +207,21 @@ namespace TravelPal
                 }
 
                 int travelers = Convert.ToInt32(tbTravelers.Text);
-                TravelManager.AddTravel(
-                    tbDestination.Text,
-                    (Countries)cbCountry.SelectedItem,
-                    travelers,
-                    cbTripVacation.SelectedItem.ToString(),
-                    cbTripType.SelectedItem.ToString(),
-                    (bool)chbxAllInclusive.IsChecked,
-                    (DateTime)cldDates.SelectedDate,
-                    packList
-                    );
+
+                if (cbTripVacation.SelectedIndex == 0)
+                {
+                    Trip trip = new((TripTypes)cbTripType.SelectedItem, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), 3, packList, SignedInUser);
+                    ((User)SignedInUser).GetAllTravels().Add(trip);
+                    TravelManager.AddTravel(trip);
+
+                }
+                else
+                {
+                    // vacation
+                    Vacation vacation = new((bool)chbxAllInclusive.IsChecked, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), 3, packList, SignedInUser);
+                    ((User)SignedInUser).GetAllTravels().Add(vacation);
+                    TravelManager.AddTravel(vacation);
+                }
 
                 ((TravelsWindow)this.Owner).UpdateTravelListView();
                 foreach (Window window in Application.Current.Windows)
@@ -229,6 +254,14 @@ namespace TravelPal
         private void cldDates_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             Mouse.Capture(null);
+        }
+
+        private void cbCountry_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            Countries userCountry = SignedInUser.Location;
+            //Countries inputCountry = (Countries)cbCountry.SelectedItem;
+
+
         }
     }
 }

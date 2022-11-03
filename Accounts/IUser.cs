@@ -8,9 +8,6 @@ namespace TravelPal.Accounts
         public string Password { get; set; }
         public Countries Location { get; set; }
 
-        public IUser(username, password, location)
-        {
-
-        }
+        void IUser(string username, string password, Countries location);
     }
 }

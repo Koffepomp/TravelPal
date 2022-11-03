@@ -118,6 +118,7 @@
             HorizontalAlignment="Left"
             HorizontalContentAlignment="Left"
             VerticalContentAlignment="Center"
+            SelectionChanged="cbRegisterCountry_SelectionChanged"
             />
 
         <Button
@@ -131,6 +132,7 @@
             FontWeight="Bold"
             VerticalAlignment="Top"
             Click="btnRegisterAccount_Click"
+            IsEnabled="False"
             />
 
         <Label

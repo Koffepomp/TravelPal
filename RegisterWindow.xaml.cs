@@ -28,23 +28,13 @@ namespace TravelPal
 
         private void btnRegisterAccount_Click(object sender, RoutedEventArgs e)
         {
-            bool isUsernameTaken = false;
-            string compareUsername = "";
+            User user = new(tbRegisterUsername.Text, tbRegisterPassword.Text, (Countries)cbRegisterCountry.SelectedItem);
 
-            foreach (IUser user in UserManager.Users)
+            if (tbRegisterPassword.Text == tbRegisterConfirmPassword.Text)
             {
-                if (user.Username == compareUsername)
+                if (UserManager.AddUser(user))
                 {
-                    isUsernameTaken = true;
-                }
-            }
-
-            if (!isUsernameTaken)
-            {
-                if (tbRegisterPassword.Text == tbRegisterConfirmPassword.Text)
-                {
-                    UserManager.CreateUser(tbRegisterUsername.Text, tbRegisterPassword.Text, (Countries)cbRegisterCountry.SelectedItem);
-                    MessageBox.Show("Account creation complete!");
+                    //MessageBox.Show("Account creation complete!");
                     foreach (Window window in Application.Current.Windows)
                     {
                         if (window.GetType().Name == "MainWindow")
@@ -56,18 +46,14 @@ namespace TravelPal
                 }
                 else
                 {
-                    MessageBox.Show("Passwords mismatch! Please enter again.");
-                    //tbRegisterPassword.Clear();
-                    //tbRegisterConfirmPassword.Clear();
+                    MessageBox.Show("Username already taken!");
                 }
             }
             else
             {
-                MessageBox.Show("Username already taken! Please enter a new one.");
+                MessageBox.Show("Passwords mismatch! Please enter again.");
             }
-
         }
-
         private void tbRegisterUsername_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             lblUsernameTaken.Visibility = Visibility.Hidden;
@@ -79,6 +65,11 @@ namespace TravelPal
                     lblUsernameTaken.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void cbRegisterCountry_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            btnRegisterAccount.IsEnabled = true;
         }
     }
 }

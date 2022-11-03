@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TravelPal.Accounts;
 using TravelPal.Enums;
 using TravelPal.PackingList;
 
@@ -9,9 +10,9 @@ namespace TravelPal.Travels
     {
         public bool IsAllInclusive { get; set; }
 
-        public Vacation(string destination, Countries country, int travellers, string tripOrVacation, string tripType, bool isAllInclusive, DateTime selectedDate, List<IPackingListItem> packingList) : base(destination, country, travellers, tripOrVacation, tripType, isAllInclusive, selectedDate, packingList)
+        public Vacation(bool isAllInclusive, string destination, Countries country, int travellers, DateTime startDate, DateTime endDate, int travelDays, List<IPackingListItem> packingList, IUser owner) : base(destination, country, travellers, startDate, endDate, travelDays, packingList, owner)
         {
-            //IsAllInclusive = isAllInclusive;
+            IsAllInclusive = isAllInclusive;
         }
         public string GetInfo()
         {

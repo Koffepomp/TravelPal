@@ -20,41 +20,56 @@ namespace TravelPal
             //CreateAdmin("qwe", "asd", Countries.Afghanistan);
         }
 
-        public bool CreateUser(IUser user)
+        public bool AddUser(IUser user)
         {
-            //User user = new(userName, password, country);
-            //Users.Add(user);
-            bool booljävel = true;
-            return booljävel;
+            if (ValidateUsername(user.Username))
+            {
+                Users.Add(user);
+                return true;
+            }
+            return false;
         }
 
         public bool UpdateUsername(IUser user, string updateName)
         {
-            //gammalt namn = updateName
-            bool newName = true;
-            return newName;
+            if (ValidateUsername(updateName))
+            {
+                user.Username = updateName;
+                return true;
+            }
+
+            return false;
         }
 
-        private bool ValidateUsername(username)
+        private bool ValidateUsername(string username)
         {
-
-            return boolnått;
+            foreach (IUser user in Users)
+            {
+                if (user.Username == username)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
-        public bool SignInUser(username, password)
+        public bool SignInUser(string username, string password)
         {
-            return booljapp;
+            foreach (IUser user in Users)
+            {
+                if (user.Username == username && user.Password == password)
+                {
+                    SignedInUser = user;
+                    return true;
+                }
+            }
+            return false;
         }
 
         //public void CreateAdmin(string userName, string password, Countries country)
         //{
         //    Admin admin = new(userName, password, country);
         //    Users.Add(admin);
-        //}
-
-        //public List<IUser> FetchAccounts()
-        //{
-        //    return Users;
         //}
     }
 }
