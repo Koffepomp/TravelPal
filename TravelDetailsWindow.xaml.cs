@@ -101,7 +101,7 @@ namespace TravelPal
             int travelers = Convert.ToInt32(tbTravelers.Text);
             Travel.Travellers = travelers;
 
-            ((TravelsWindow)this.Owner).UpdateTravelListView();
+            ((TravelsWindow)this.Owner).UpdateTravelWindow();
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType().Name == "TravelsWindow")

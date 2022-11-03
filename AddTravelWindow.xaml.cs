@@ -20,21 +20,28 @@ namespace TravelPal
         IUser SignedInUser;
         TravelManager TravelManager;
 
+        int travelDays = 0;
+        DateTime startDate;
+        DateTime endDate;
+
         public AddTravelWindow(UserManager userManager, IUser signedInUser, TravelManager travelManager)
         {
             UserManager = userManager;
             SignedInUser = signedInUser;
             TravelManager = travelManager;
+
             InitializeComponent();
-            cbTripVacation.Items.Add("Trip");
-            cbTripVacation.Items.Add("Vacation");
             AddCountriesToComboBox();
             AddTripsToComboBox();
-            tbFrom.Text = signedInUser.Location.ToString();
+
+            cldDates.SelectionMode = CalendarSelectionMode.MultipleRange;
+            cldDates.SelectedDate = DateTime.Today;
+            cldDates.DisplayDate = DateTime.Today;
         }
 
         private void AddCountriesToComboBox()
         {
+            tbFrom.Text = SignedInUser.Location.ToString();
             foreach (Enum country in Enum.GetValues(typeof(Countries)))
             {
                 cbCountry.Items.Add(country);
@@ -43,6 +50,8 @@ namespace TravelPal
 
         private void AddTripsToComboBox()
         {
+            cbTripVacation.Items.Add("Trip");
+            cbTripVacation.Items.Add("Vacation");
             foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
             {
                 cbTripType.Items.Add(tripType);
@@ -210,7 +219,7 @@ namespace TravelPal
 
                 if (cbTripVacation.SelectedIndex == 0)
                 {
-                    Trip trip = new((TripTypes)cbTripType.SelectedItem, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), 3, packList, SignedInUser);
+                    Trip trip = new((TripTypes)cbTripType.SelectedItem, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, startDate, endDate, travelDays, packList, SignedInUser);
                     ((User)SignedInUser).GetAllTravels().Add(trip);
                     TravelManager.AddTravel(trip);
 
@@ -218,12 +227,12 @@ namespace TravelPal
                 else
                 {
                     // vacation
-                    Vacation vacation = new((bool)chbxAllInclusive.IsChecked, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, new DateTime(2022, 11, 1), new DateTime(2022, 11, 5), 3, packList, SignedInUser);
+                    Vacation vacation = new((bool)chbxAllInclusive.IsChecked, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, startDate, endDate, travelDays, packList, SignedInUser);
                     ((User)SignedInUser).GetAllTravels().Add(vacation);
                     TravelManager.AddTravel(vacation);
                 }
 
-                ((TravelsWindow)this.Owner).UpdateTravelListView();
+                ((TravelsWindow)this.Owner).UpdateTravelWindow();
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.GetType().Name == "TravelsWindow")
@@ -253,6 +262,11 @@ namespace TravelPal
 
         private void cldDates_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
+            travelDays = cldDates.SelectedDates.Count;
+            firstDate =
+            startDate = cldDates.SelectedDates[0];
+            endDate = startDate + travelDays;
+
             Mouse.Capture(null);
         }
 

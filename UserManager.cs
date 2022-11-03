@@ -10,14 +10,7 @@ namespace TravelPal
         public IUser SignedInUser { get; set; }
         public UserManager()
         {
-            // Loads the default login accounts on startup (Gandalf and Admin)
-            LoadDefaultAccounts();
-        }
 
-        private void LoadDefaultAccounts()
-        {
-            //CreateUser("Gandalf", "asd", Countries.United_States);
-            //CreateAdmin("qwe", "asd", Countries.Afghanistan);
         }
 
         public bool AddUser(IUser user)

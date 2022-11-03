@@ -44,16 +44,6 @@ namespace TravelPal
 
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e)
         {
-            //foreach (IUser user in UserManager.Users)
-            //{
-            //    string username = user.Username;
-            //    if (username == tbUsername.Text)
-            //    {
-            //        MessageBox.Show("Username too short. (3-16 characters)");
-            //        return;
-            //    }
-            //}
-
             if (tbUsername.Text.Length < 3)
             {
                 MessageBox.Show("Username too short. (3-16 characters)");
@@ -62,7 +52,11 @@ namespace TravelPal
             {
                 MessageBox.Show("Passwords mismatch! Please enter again.");
             }
-            else if (tbNewPassword.Text.Length < 5)
+            else if (tbNewPassword.Text.Length == 0)
+            {
+                MessageBox.Show("Please enter a new password.");
+            }
+            else if (tbNewPassword.Text.Length > 0 && tbNewPassword.Text.Length < 5)
             {
                 MessageBox.Show("Password too short. (5-16 characters)");
             }
@@ -75,7 +69,7 @@ namespace TravelPal
                 SignedInUser.Location = (Countries)cbCountry.SelectedItem;
                 SignedInUser.Password = tbNewConfirmPassword.Text;
 
-                MessageBox.Show("New settings saved!");
+                ((TravelsWindow)this.Owner).UpdateTravelWindow();
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.GetType().Name == "TravelsWindow")

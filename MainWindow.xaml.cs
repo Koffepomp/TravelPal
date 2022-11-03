@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using TravelPal.Accounts;
+using TravelPal.Enums;
 
 namespace TravelPal
 {
@@ -12,12 +14,20 @@ namespace TravelPal
         public MainWindow()
         {
             InitializeComponent();
+            LoadDefaultAccounts();
+        }
+
+        private void LoadDefaultAccounts()
+        {
+            Admin admin = new("admin", "password", Countries.Sweden);
+            userManager.AddUser(admin);
+
+            User user = new("Gandalf", "asd", Countries.Australia);
+            userManager.AddUser(user);
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            // Close Main window and open register window
-            //MessageBox.Show("Opening register window...");
             RegisterWindow registerWindow = new(userManager);
             registerWindow.Show();
             this.Hide();

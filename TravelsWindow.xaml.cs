@@ -21,18 +21,16 @@ namespace TravelPal
             UserManager = userManager;
             SignedInUser = signedInUser;
             TravelManager = travelManager;
-            // Shows username as logged in
-            lblUsername.Content = signedInUser.Username.ToUpper();
 
             // IF ADMIN HERE
             if (signedInUser.GetType().Name == "Admin")
             {
                 btnAddTravel.Visibility = Visibility.Hidden;
             }
-            UpdateTravelListView();
+            UpdateTravelWindow();
         }
 
-        public void UpdateTravelListView()
+        public void UpdateTravelWindow()
         {
             lvTravels.Items.Clear();
 
@@ -56,6 +54,8 @@ namespace TravelPal
                     lvTravels.Items.Add(newTravelItem);
                 }
             }
+            // Shows username as logged in
+            lblUsername.Content = SignedInUser.Username.ToUpper();
 
         }
 
@@ -63,6 +63,7 @@ namespace TravelPal
         {
             // Close Travelswindow and open usersettings
             UserDetailsWindow userDetailsWindow = new(UserManager, SignedInUser);
+            userDetailsWindow.Owner = this;
             userDetailsWindow.Show();
             this.Hide();
         }
@@ -104,7 +105,7 @@ namespace TravelPal
             }
             finally
             {
-                UpdateTravelListView();
+                UpdateTravelWindow();
             }
         }
 
@@ -121,16 +122,17 @@ namespace TravelPal
             }
             finally
             {
-                UpdateTravelListView();
+                UpdateTravelWindow();
             }
         }
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             // Help user with some information
-            MessageBox.Show("Going on a work trip? Taking a vacation? Allow us to simplify your travels.\r\n" +
+            MessageBox.Show("Going on a work trip? Taking a vacation?\r\n" +
+                "Allow us to simplify your travels.\r\n" +
                 "Enjoy endless possibilities while managing your travel on the go.\r\n" +
-                "Never forget your belongings with our customizable packing list system!\r\n\r\n" +
+                "Never forget what to bring with our customizable packinglist system!\r\n\r\n" +
                 "Thank you for picking TravelPal as your vacation companion.\r\n" +
                 "We hope you enjoy your trip as much as we enjoy taking your money.\r\n\r\n" +
                 "- Bernt Pompsson, Chief Executive Officer"
