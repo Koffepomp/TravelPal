@@ -23,6 +23,7 @@ namespace TravelPal.Accounts
 
         }
 
+        // Returns all travels in this user when requested
         public List<Travel> GetAllTravels()
         {
             return Travels;

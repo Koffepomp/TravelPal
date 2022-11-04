@@ -40,9 +40,10 @@ namespace TravelPal.Travels
             Owner = owner;
         }
 
-        public int calculateTravelDays(int x, int z)
+        // I made this based on the drawio diagram but ended up not using it
+        public int calculateTravelDays(int startDate, int endDate)
         {
-            int travelDuration = x - z;
+            int travelDuration = startDate + endDate;
             return travelDuration;
         }
     }

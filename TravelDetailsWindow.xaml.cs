@@ -16,16 +16,20 @@ namespace TravelPal
         IUser User;
         TravelManager TravelManager;
         Travel Travel;
+
         public TravelDetailsWindow(UserManager userManager, IUser user, TravelManager travelManager, Travel selectedTravel)
         {
             UserManager = userManager;
             User = user;
             TravelManager = travelManager;
             Travel = selectedTravel;
+
             InitializeComponent();
+
             LoadTravelDetails();
         }
 
+        // Loads all the travel details to fill out the text fields
         private void LoadTravelDetails()
         {
             foreach (IPackingListItem item in Travel.PackingList)
@@ -41,10 +45,13 @@ namespace TravelPal
             cbTripVacation.Items.Add("Vacation");
             lblStartDate.Content = Travel.StartDate;
             lblEndDate.Content = Travel.EndDate;
+
             foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
             {
                 cbTripType.Items.Add(tripType);
             }
+
+            // If its a trip, sets it to trip in the combobox
             if (Travel.GetType().Name == "Trip")
             {
                 cbTripVacation.SelectedIndex = 0;
@@ -58,6 +65,7 @@ namespace TravelPal
                     cbTripType.SelectedIndex = 1;
                 }
             }
+            // If its a vacation, shows the allinclusive checkbox
             else if (Travel.GetType().Name == "Vacation")
             {
                 chbxAllInclusive.IsChecked = ((Vacation)Travel).IsAllInclusive;
@@ -67,30 +75,28 @@ namespace TravelPal
             }
         }
 
+        // Enables save button, destination textbox, country combobox and travelers textbox when "EDIT" is pressed
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            // Enables and disables appropiate features when edit is clicked
             btnEdit.IsEnabled = false;
             btnSaveTravel.IsEnabled = true;
             tbDestination.IsEnabled = true;
             cbCountry.IsEnabled = true;
             tbTravelers.IsEnabled = true;
-            //cbTripVacation.IsEnabled = true;
-            //chbxAllInclusive.IsEnabled = true;
-            //cbTripType.IsEnabled = true;
             AddCountriesToComboBox();
             AddTripsToComboBox();
         }
 
+        // Fills country combobox with the countries enum
         private void AddCountriesToComboBox()
         {
-            //cbCountry.Items.Clear();
             foreach (Enum country in Enum.GetValues(typeof(Countries)))
             {
                 cbCountry.Items.Add(country);
             }
         }
 
+        // Adds triptype combobox with triptypes enum
         private void AddTripsToComboBox()
         {
             foreach (TripTypes tripType in Enum.GetValues(typeof(TripTypes)))
@@ -100,6 +106,7 @@ namespace TravelPal
             }
         }
 
+        // Overwrites the old elements with the new information before closing TravelDetailsWindow and opening TravelsWindow
         private void btnSaveTravel_Click(object sender, RoutedEventArgs e)
         {
             Travel.Destination = tbDestination.Text;
@@ -118,6 +125,7 @@ namespace TravelPal
             Close();
         }
 
+        // Discards any changes made, closes TravelDetailsWindow and opening TravelsWindow
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             foreach (Window window in Application.Current.Windows)

@@ -39,6 +39,7 @@ namespace TravelPal
             cldDates.DisplayDate = DateTime.Today;
         }
 
+        // Fills country combobox with the countries enum
         private void AddCountriesToComboBox()
         {
             tbFrom.Text = SignedInUser.Location.ToString();
@@ -48,6 +49,7 @@ namespace TravelPal
             }
         }
 
+        // Adds trip/vacation and triptypes enum to the comboboxes
         private void AddTripsToComboBox()
         {
             cbTripVacation.Items.Add("Trip");
@@ -59,6 +61,7 @@ namespace TravelPal
             cbTripType.SelectedIndex = 0;
         }
 
+        // Shows or hides the triptype or allinclusive elements
         private void cbTripVacation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Trip type / all inclusive show and hide reaction
@@ -87,11 +90,13 @@ namespace TravelPal
             }
         }
 
+        // Toggles visibility of the required and amount elements
         private void chbxDocument_Click(object sender, RoutedEventArgs e)
         {
             ToggleAmountAndRequiredVisibility();
         }
 
+        // Adds a packinglist item and throws an exception if failing to do so
         private void btnAddItem_Click(object sender, RoutedEventArgs e)
         {
 
@@ -100,14 +105,12 @@ namespace TravelPal
                 string itemName = tbItemName.Text;
                 if ((bool)chbxDocument.IsChecked)
                 {
-                    // det är ett dokument
                     bool isRequired = (bool)chbxRequired.IsChecked;
                     TravelDocument travelDocument = new(itemName, isRequired);
                     AddToListView(travelDocument);
                 }
                 else
                 {
-                    // lägg till item
                     int itemAmount = Convert.ToInt32(tbItemAmount.Text);
                     OtherItem otherItem = new(itemName, itemAmount);
                     AddToListView(otherItem);
@@ -120,6 +123,7 @@ namespace TravelPal
             }
         }
 
+        // Makes the packinglist item into a listviewitem, tags it and adds it to the packinglist
         private void AddToListView(IPackingListItem newItem)
         {
             ListViewItem newListViewItem = new();
@@ -129,6 +133,7 @@ namespace TravelPal
             lvInventory.Items.Add(newListViewItem);
         }
 
+        // Toggles visibility of the required and amount elements
         private void ToggleAmountAndRequiredVisibility()
         {
             if (lblAmount.Visibility == Visibility.Visible)
@@ -147,6 +152,7 @@ namespace TravelPal
             }
         }
 
+        // Resets the add packinglist fields and textboxes after adding an item
         private void ResetInventoryFields()
         {
             // Shows the amount label and textbox
@@ -166,6 +172,7 @@ namespace TravelPal
             tbItemAmount.Clear();
         }
 
+        // Exits AddTravelWindow and sends user back to TravelsWindow
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             foreach (Window window in Application.Current.Windows)
@@ -178,6 +185,7 @@ namespace TravelPal
             Close();
         }
 
+        // Started preparing to make the passport feature, but didnt finish in time
         private bool IsCountryInEU(Countries countries)
         {
             foreach (EuropeanCountries country in Enum.GetValues(typeof(EuropeanCountries)))
@@ -190,6 +198,9 @@ namespace TravelPal
             return false;
         }
 
+        // Adds a travel or trip to the travelmanager and user
+        // Some exception handling if not filled out correctly
+        // Ends with closing the window and opening TravelsWindow again
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -226,7 +237,6 @@ namespace TravelPal
                 }
                 else
                 {
-                    // vacation
                     Vacation vacation = new((bool)chbxAllInclusive.IsChecked, tbDestination.Text, (Countries)cbCountry.SelectedItem, travelers, cldDates.SelectedDates[0], cldDates.SelectedDates[cldDates.SelectedDates.Count() - 1], cldDates.SelectedDates.Count(), packList, SignedInUser);
                     ((User)SignedInUser).GetAllTravels().Add(vacation);
                     TravelManager.AddTravel(vacation);
@@ -249,6 +259,7 @@ namespace TravelPal
             }
         }
 
+        // Used when adding a travel. Creates the packinglist, adds items and returns it
         private List<IPackingListItem> CreateList()
         {
             List<IPackingListItem> packList = new();
@@ -260,17 +271,16 @@ namespace TravelPal
             return packList;
         }
 
+        // A small fix so you dont have to double click buttons after clicking in the calendar
         private void cldDates_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             Mouse.Capture(null);
         }
 
+        // Sets user country to the signed in user when mouse leaves the country combobox
         private void cbCountry_LostMouseCapture(object sender, MouseEventArgs e)
         {
             Countries userCountry = SignedInUser.Location;
-            //Countries inputCountry = (Countries)cbCountry.SelectedItem;
-
-
         }
     }
 }

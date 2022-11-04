@@ -11,6 +11,7 @@
             Quantity = quantity;
         }
 
+        // Returns a string with item quantity and item name in the packlist listview
         public string GetInfo()
         {
             return $"[{Quantity}] {Name}";

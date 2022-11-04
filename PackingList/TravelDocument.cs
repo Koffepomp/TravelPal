@@ -11,6 +11,7 @@
             IsRequired = isRequired;
         }
 
+        // Returns a required string after an item name if required checkbox is checked
         public string GetInfo()
         {
             if (IsRequired)

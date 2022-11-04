@@ -22,14 +22,16 @@ namespace TravelPal
             SignedInUser = signedInUser;
             TravelManager = travelManager;
 
-            // IF ADMIN HERE
+            // Hides the add travel button if user is admin, since admins should never add travels
             if (signedInUser.GetType().Name == "Admin")
             {
                 btnAddTravel.Visibility = Visibility.Hidden;
             }
+
             UpdateTravelWindow();
         }
 
+        // This method is called on everytime the listview of travels needs to be updated
         public void UpdateTravelWindow()
         {
             lvTravels.Items.Clear();
@@ -54,23 +56,23 @@ namespace TravelPal
                     lvTravels.Items.Add(newTravelItem);
                 }
             }
-            // Shows username as logged in
+            // Shows username as logged in at the top, and updates it if necessary
             lblUsername.Content = SignedInUser.Username.ToUpper();
 
         }
 
+        // Closes TravelsWindow and opens UserDetailWindow
         private void btnUserSettings_Click(object sender, RoutedEventArgs e)
         {
-            // Close Travelswindow and open usersettings
             UserDetailsWindow userDetailsWindow = new(UserManager, SignedInUser);
             userDetailsWindow.Owner = this;
             userDetailsWindow.Show();
             this.Hide();
         }
 
+        // Closes RegisterWindow and opens MainWindow
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
-            // Close RegisterWindow and open MainWindow
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType().Name == "MainWindow")
@@ -81,15 +83,16 @@ namespace TravelPal
             Close();
         }
 
+        // Closes Travelswindow and opens AddTravelWindow
         private void btnAddTravel_Click(object sender, RoutedEventArgs e)
         {
-            // Close Travelswindow and open addtravelwindow
             AddTravelWindow addTravelWindow = new(UserManager, SignedInUser, TravelManager);
             addTravelWindow.Owner = this;
             addTravelWindow.Show();
             this.Hide();
         }
 
+        // Tries to open TravelDetailsWindow and throws an exception if a travel isnt selected in the listview
         private void btnDetails_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -109,23 +112,24 @@ namespace TravelPal
             }
         }
 
+        // Tries to remove a travel selected in the listview
         private void btnRemoveTravel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // remove travel
                 Travel selectedTravel = GetSelectedItem();
 
+                // If its an admin removing the travel it needs to find the corresponding user travel as well
                 if (SignedInUser.GetType().Name == "Admin")
                 {
                     Admin admin = (Admin)SignedInUser;
-                    foreach(IUser user in UserManager.Users)
+                    foreach (IUser user in UserManager.Users)
                     {
                         if (user.GetType().Name == "User")
                         {
                             User castUser = (User)user;
                             bool found = false;
-                            foreach(Travel travel in castUser.Travels)
+                            foreach (Travel travel in castUser.Travels)
                             {
                                 if (travel == selectedTravel)
                                     found = true;
@@ -145,19 +149,6 @@ namespace TravelPal
                 }
 
                 TravelManager.GetAllTravels().Remove(selectedTravel);
-
-
-                // FLOPP FÖRSÖK
-                //TravelManager.RemoveTravel(selectedTravel);
-                //Travel selectedTravel = GetSelectedItem();
-                //((TravelManager)SignedInUser).RemoveTravel(selectedTravel);
-
-
-
-                // Gammal jävel
-                //TravelManager.RemoveTravel(selectedTravel);
-
-                MessageBox.Show("Successfully removed travel!");
             }
             catch (Exception ex)
             {
@@ -169,9 +160,9 @@ namespace TravelPal
             }
         }
 
+        // Helps user with some information if clicked
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            // Help user with some information
             MessageBox.Show("Going on a work trip? Taking a vacation?\r\n" +
                 "Allow us to simplify your travels.\r\n" +
                 "Enjoy endless possibilities while managing your travel on the go.\r\n" +
@@ -182,6 +173,7 @@ namespace TravelPal
                 );
         }
 
+        // Helps the details button and remove button to tag the right listviewitem to show or remove
         private Travel GetSelectedItem()
         {
             if (lvTravels.SelectedItem == null)

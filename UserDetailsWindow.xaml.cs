@@ -17,10 +17,18 @@ namespace TravelPal
             UserManager = userManager;
             SignedInUser = signedInUser;
             InitializeComponent();
+
+            // Sets username to current signedinuser username
             tbUsername.Text = signedInUser.Username;
+
+            // Add country to current signedinuser country
             cbCountry.Items.Add(signedInUser.Location);
+
+            // Sets the combobox to have selecteditem as signinuser country
             cbCountry.SelectedIndex = 0;
         }
+
+        // Fills country combobox with the countries enum
         private void AddCountriesToComboBox()
         {
             foreach (Enum country in Enum.GetValues(typeof(Countries)))
@@ -29,9 +37,9 @@ namespace TravelPal
             }
         }
 
+        // User cancelled making account changes. Closes UserDetailsWindow and opens Travelswindow again
         private void btnCancelSettings_Click(object sender, RoutedEventArgs e)
         {
-            // User cancelled making account changes
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType().Name == "TravelsWindow")
@@ -42,6 +50,8 @@ namespace TravelPal
             Close();
         }
 
+        // When user presses save, another way of exception handling goes through all input fields
+        // Makes sure to set new username, location and password then closes the window and opens Travelswindow
         private void btnSaveSettings_Click(object sender, RoutedEventArgs e)
         {
             if (tbUsername.Text.Length < 3)
@@ -85,12 +95,14 @@ namespace TravelPal
             }
         }
 
+        // If user pressed "CHANGE" next to username, it unlocks the username textbox and hides the "CHANGE" text
         private void btnChangeUsername_Click(object sender, RoutedEventArgs e)
         {
             tbUsername.IsEnabled = true;
             btnChangeUsername.Visibility = Visibility.Hidden;
         }
 
+        // If user pressed "CHANGE" next to country, it unlocks the country combobox and populates it with the countries enum
         private void btnChangeCountry_Click(object sender, RoutedEventArgs e)
         {
             cbCountry.Items.Clear();

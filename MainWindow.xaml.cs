@@ -21,6 +21,7 @@ namespace TravelPal
             LoadDefaultAccounts();
         }
 
+        // Creates the 2 default accounts and 2 default trips on startup. (Gandalf and admin)
         private void LoadDefaultAccounts()
         {
             // Admin default account
@@ -49,6 +50,8 @@ namespace TravelPal
             user.Travels.Add(vacation);
             travelManager.AddTravel(vacation);
         }
+
+        // Opens register window when button is clicked
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new(userManager);
@@ -56,6 +59,7 @@ namespace TravelPal
             this.Hide();
         }
 
+        // Checks for validation from UserManager with username and password and logs you in if returned true. Else shows error message.
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             string inputUsername = tbUsername.Text;
@@ -74,6 +78,8 @@ namespace TravelPal
             }
         }
 
+        // I was contemplating to just write out all user and their passwords in a MessageBox to help with lost accounts.
+        // But I guess just trying to consolidate the user is slightly safer for the application.
         private void btnForgotPassword_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Unlucky.");
