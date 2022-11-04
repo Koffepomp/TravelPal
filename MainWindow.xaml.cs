@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Documents;
 using TravelPal.Accounts;
 using TravelPal.Enums;
+using TravelPal.PackingList;
+using TravelPal.Travels;
 
 namespace TravelPal
 {
@@ -19,11 +24,23 @@ namespace TravelPal
 
         private void LoadDefaultAccounts()
         {
+            // Admin default account
             Admin admin = new("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
+            // Admin default trip
 
+
+            // Gandalf default account
             User user = new("Gandalf", "password", Countries.Australia);
             userManager.AddUser(user);
+            // Gandalf default trip
+
+
+            List<IPackingListItem> tempList = new();
+            OtherItem newItem = new("Gandalfs hatt", 1);
+            tempList.Add(newItem);
+            Trip trip = new(TripTypes.Leisure, "Ullared", Countries.Sweden, 3, new DateTime(2022, 11 ,1), new DateTime(2022, 11, 1), 1, tempList, user);
+            user.Travels.Add(trip);
         }
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)

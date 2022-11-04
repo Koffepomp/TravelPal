@@ -116,7 +116,35 @@ namespace TravelPal
                 // remove travel
                 Travel selectedTravel = GetSelectedItem();
 
+                if (SignedInUser.GetType().Name == "Admin")
+                {
+                    Admin admin = (Admin)SignedInUser;
+                    foreach(IUser user in UserManager.Users)
+                    {
+                        if (user.GetType().Name == "User")
+                        {
+                            User castUser = (User)user;
+                            bool found = false;
+                            foreach(Travel travel in castUser.Travels)
+                            {
+                                if (travel == selectedTravel)
+                                    found = true;
+                            }
+                            if (found)
+                            {
+                                castUser.GetAllTravels().Remove(selectedTravel);
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    User user = (User)SignedInUser;
+                    user.GetAllTravels().Remove(selectedTravel);
+                }
 
+                TravelManager.GetAllTravels().Remove(selectedTravel);
 
 
                 // FLOPP FÖRSÖK
@@ -125,10 +153,6 @@ namespace TravelPal
                 //((TravelManager)SignedInUser).RemoveTravel(selectedTravel);
 
 
-                if (SignedInUser.GetType().Name == "Admin")
-                {
-                    // här ska skiten också tas bort
-                }
 
                 // Gammal jävel
                 //TravelManager.RemoveTravel(selectedTravel);
