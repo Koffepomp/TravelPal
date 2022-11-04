@@ -34,6 +34,7 @@ namespace TravelPal
             User user = new("Gandalf", "password", Countries.Australia);
             userManager.AddUser(user);
             // Gandalf default trip
+            //AddTripToAccount(TripTypes.Leisure);
 
 
             List<IPackingListItem> tempList = new();
@@ -42,6 +43,11 @@ namespace TravelPal
             Trip trip = new(TripTypes.Leisure, "Ullared", Countries.Sweden, 3, new DateTime(2022, 11 ,1), new DateTime(2022, 11, 1), 1, tempList, user);
             user.Travels.Add(trip);
         }
+
+        //private void AddTripToAccount(TripTypes triptype, string destination, Countries country, int travellers, DateTime startDate, DateTime endDate, int travelDays, )
+        //{
+        //    Trip trip = new(triptype);
+        //}
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
