@@ -12,12 +12,6 @@ namespace TravelPal
             return Travels;
         }
 
-        //public void AddTravel(string destination, Countries country, int travellers, string tripOrVacation, string tripType, bool isAllInclusive, DateTime selectedDate, List<IPackingListItem> packList)
-        //{
-        //    Travel newTravel = new(destination,country,travellers,tripOrVacation,tripType,isAllInclusive,selectedDate,packList);
-        //    Travels.Add(newTravel);
-        //}
-
         public void AddTravel(Travel travel)
         {
             Travels.Add(travel);

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Documents;
 using TravelPal.Accounts;
 using TravelPal.Enums;
 using TravelPal.PackingList;
@@ -27,28 +26,29 @@ namespace TravelPal
             // Admin default account
             Admin admin = new("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
-            // Admin default trip
-
 
             // Gandalf default account
             User user = new("Gandalf", "password", Countries.Australia);
             userManager.AddUser(user);
+
             // Gandalf default trip
-            //AddTripToAccount(TripTypes.Leisure);
-
-
             List<IPackingListItem> tempList = new();
-            OtherItem newItem = new("Gandalfs hatt", 1);
+            OtherItem newItem = new("Lightning Staff", 1);
             tempList.Add(newItem);
-            Trip trip = new(TripTypes.Leisure, "Ullared", Countries.Sweden, 3, new DateTime(2022, 11 ,1), new DateTime(2022, 11, 1), 1, tempList, user);
+            Trip trip = new(TripTypes.Leisure, "Mordor", Countries.Australia, 3, new DateTime(2022, 11, 8), new DateTime(2022, 11, 12), 5, tempList, user);
             user.Travels.Add(trip);
+            travelManager.AddTravel(trip);
+
+            // Gandalf default vacation
+            List<IPackingListItem> tempList2 = new();
+            OtherItem crowbar = new("Crowbar", 1);
+            OtherItem lockpicks = new("Lockpicks", 1);
+            tempList2.Add(crowbar);
+            tempList2.Add(lockpicks);
+            Vacation vacation = new(true, "ICA Mexi", Countries.Mexico, 3, new DateTime(2022, 11, 8), new DateTime(2022, 11, 15), 8, tempList2, user);
+            user.Travels.Add(vacation);
+            travelManager.AddTravel(vacation);
         }
-
-        //private void AddTripToAccount(TripTypes triptype, string destination, Countries country, int travellers, DateTime startDate, DateTime endDate, int travelDays, )
-        //{
-        //    Trip trip = new(triptype);
-        //}
-
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             RegisterWindow registerWindow = new(userManager);
@@ -63,7 +63,6 @@ namespace TravelPal
             if (userManager.SignInUser(inputUsername, inputPassword))
             {
                 pbPassword.Clear();
-                // Close Main window and open TravelsWindow
                 TravelsWindow travelsWindow = new(userManager, userManager.SignedInUser, travelManager);
                 travelsWindow.Show();
                 this.Hide();
