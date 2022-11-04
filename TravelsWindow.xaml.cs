@@ -113,7 +113,26 @@ namespace TravelPal
         {
             try
             {
-                TravelManager.RemoveTravel(GetSelectedItem());
+                // remove travel
+                Travel selectedTravel = GetSelectedItem();
+
+
+
+
+                // FLOPP FÖRSÖK
+                //TravelManager.RemoveTravel(selectedTravel);
+                //Travel selectedTravel = GetSelectedItem();
+                //((TravelManager)SignedInUser).RemoveTravel(selectedTravel);
+
+
+                if (SignedInUser.GetType().Name == "Admin")
+                {
+                    // här ska skiten också tas bort
+                }
+
+                // Gammal jävel
+                //TravelManager.RemoveTravel(selectedTravel);
+
                 MessageBox.Show("Successfully removed travel!");
             }
             catch (Exception ex)

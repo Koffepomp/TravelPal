@@ -84,7 +84,7 @@ namespace TravelPal
 
         private void AddCountriesToComboBox()
         {
-            cbCountry.Items.Clear();
+            //cbCountry.Items.Clear();
             foreach (Enum country in Enum.GetValues(typeof(Countries)))
             {
                 cbCountry.Items.Add(country);

@@ -14,9 +14,9 @@
         public string GetInfo()
         {
             if (IsRequired)
-                return $"{Name} required!";
+                return $"{Name} [REQUIRED]";
             else
-                return $"{Name} not required!";
+                return $"{Name}";
         }
     }
 }

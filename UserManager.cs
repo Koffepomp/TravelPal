@@ -58,11 +58,5 @@ namespace TravelPal
             }
             return false;
         }
-
-        //public void CreateAdmin(string userName, string password, Countries country)
-        //{
-        //    Admin admin = new(userName, password, country);
-        //    Users.Add(admin);
-        //}
     }
 }

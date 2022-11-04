@@ -22,7 +22,7 @@ namespace TravelPal
             Admin admin = new("admin", "password", Countries.Sweden);
             userManager.AddUser(admin);
 
-            User user = new("Gandalf", "asd", Countries.Australia);
+            User user = new("Gandalf", "password", Countries.Australia);
             userManager.AddUser(user);
         }
 
