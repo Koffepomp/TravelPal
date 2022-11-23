@@ -34,6 +34,7 @@ namespace TravelPal
 
             // Gandalf default trip
             List<IPackingListItem> tempList = new();
+            TravelDocument Passport1 = new("Passport", true);
             OtherItem newItem = new("Lightning Staff", 1);
             tempList.Add(newItem);
             Trip trip = new(TripTypes.Leisure, "Mordor", Countries.Australia, 3, new DateTime(2022, 11, 8), new DateTime(2022, 11, 12), 5, tempList, user);
@@ -42,6 +43,7 @@ namespace TravelPal
 
             // Gandalf default vacation
             List<IPackingListItem> tempList2 = new();
+            TravelDocument Passport2 = new("Passport", true);
             OtherItem crowbar = new("Crowbar", 1);
             OtherItem lockpicks = new("Lockpicks", 1);
             tempList2.Add(crowbar);

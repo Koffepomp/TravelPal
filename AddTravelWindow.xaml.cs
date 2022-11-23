@@ -43,6 +43,7 @@ namespace TravelPal
         private void AddCountriesToComboBox()
         {
             tbFrom.Text = SignedInUser.Location.ToString();
+            AddPassport();
             foreach (Enum country in Enum.GetValues(typeof(Countries)))
             {
                 cbCountry.Items.Add(country);
@@ -185,7 +186,7 @@ namespace TravelPal
             Close();
         }
 
-        // Started preparing to make the passport feature, but didnt finish in time
+        // Compares the countries enums to check if its in EU
         private bool IsCountryInEU(Countries countries)
         {
             foreach (EuropeanCountries country in Enum.GetValues(typeof(EuropeanCountries)))
@@ -196,6 +197,21 @@ namespace TravelPal
                 }
             }
             return false;
+        }
+
+        // Adds a passport to the listview with true or false depending on if country is in EU or not
+        private void AddPassport()
+        {
+            if (IsCountryInEU(SignedInUser.Location))
+            {
+                TravelDocument Passport = new("Passport", false);
+                AddToListView(Passport);
+            }
+            else
+            {
+                TravelDocument Passport = new("Passport", true);
+                AddToListView(Passport);
+            }
         }
 
         // Adds a travel or trip to the travelmanager and user
@@ -281,6 +297,60 @@ namespace TravelPal
         private void cbCountry_LostMouseCapture(object sender, MouseEventArgs e)
         {
             Countries userCountry = SignedInUser.Location;
+        }
+
+        // When country combobox selection is changed, checks if passport is required in the new selection
+        // Could be optimized but it works for now
+        private void cbCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (IsCountryInEU((Countries)cbCountry.SelectedItem))
+            {
+                if (IsCountryInEU(SignedInUser.Location))
+                {
+                    foreach (ListViewItem item in lvInventory.Items)
+                    {
+                        if ((TravelDocument)item.Tag is TravelDocument)
+                        {
+                            TravelDocument traveldocument = (TravelDocument)item.Tag;
+                            if (traveldocument.Name == "Passport")
+                            {
+                                traveldocument.IsRequired = false;
+                                item.Content = traveldocument.GetInfo();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (ListViewItem item in lvInventory.Items)
+                    {
+                        if ((TravelDocument)item.Tag is TravelDocument)
+                        {
+                            TravelDocument traveldocument = (TravelDocument)item.Tag;
+                            if (traveldocument.Name == "Passport")
+                            {
+                                traveldocument.IsRequired = true;
+                                item.Content = traveldocument.GetInfo();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (ListViewItem item in lvInventory.Items)
+                {
+                    if ((TravelDocument)item.Tag is TravelDocument)
+                    {
+                        TravelDocument traveldocument = (TravelDocument)item.Tag;
+                        if (traveldocument.Name == "Passport")
+                        {
+                            traveldocument.IsRequired = true;
+                            item.Content = traveldocument.GetInfo();
+                        }
+                    }
+                }
+            }
         }
     }
 }

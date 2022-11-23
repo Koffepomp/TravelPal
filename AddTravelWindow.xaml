@@ -83,6 +83,7 @@
             HorizontalContentAlignment="Left"
             VerticalContentAlignment="Center"
             LostMouseCapture="cbCountry_LostMouseCapture"
+            SelectionChanged="cbCountry_SelectionChanged"
             />
 
         <ComboBox
